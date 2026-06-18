@@ -1,14 +1,8 @@
-const baseUrl = process.env.NODE_ENV;
+import { serverMutation } from "../core/server";
 
 export const AddNewPatient = async (data) => {
-  const res = await fetch(`${baseUrl}/api/patients`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  const result = await res.json();
-  return result;
+  return serverMutation("/api/patients", data);
+};
+export const AddNewDoctor = async (data) => {
+  return serverMutation("/api/doctors", data);
 };

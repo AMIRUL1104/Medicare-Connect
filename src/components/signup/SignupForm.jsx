@@ -14,7 +14,7 @@ import { PasswordInput } from "../ui/PasswordInput";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-import { AddNewPatient } from "@/services/server/action";
+import { AddNewDoctor, AddNewPatient } from "@/services/server/action";
 
 // ─── Reusable field components ────────────────────────────────────
 
@@ -66,11 +66,6 @@ export default function SignupForm() {
   // ── Submit ──────────────────────────────────────
   async function onSubmit(userData) {
     try {
-      // Better Auth বা আপনার ব্যাকএন্ডে ডেটা পাঠানোর কাস্টম লজিক এখানে লিখবেন
-      console.log("Registration payload ready for backend:", userData);
-      // await new Promise((r) => setTimeout(r, 1000));
-
-      setShowSuccess(true);
       const {
         fullName,
         email,
@@ -86,13 +81,72 @@ export default function SignupForm() {
         specialization,
       } = userData;
 
+      // ১. প্রথমে Better Auth এ সাইন-আপ
       const { data, error } = await authClient.signUp.email({
-        name: fullName, // required
-        email, // required
-        password, // required
+        name: fullName,
+        email,
+        password,
         image: photoUrl,
         role,
       });
+
+      // ২. কোনো এরর আসলে এখানেই আটকে দিন
+      if (error) {
+        console.error("Better Auth Error:", error.message);
+        setError("root", { type: "manual", message: error.message });
+        return;
+      }
+
+      // ৩. ডেটা সফলভাবে আসলে ডেটাবেজে সেভ করার লজিক
+      if (data && data.user) {
+        const userRole = data.user.role; // সঠিক রোল ট্র্যাক করার জন্য
+
+        if (userRole === "patient") {
+          const patientData = {
+            userId: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+            image: data.user.image,
+            gender,
+            phone,
+            role: userRole,
+          };
+
+          const res = await AddNewPatient(patientData);
+          console.log("Patient db response:", res);
+        }
+
+        if (userRole === "doctor") {
+          const doctorData = {
+            userId: data.user.id,
+            doctorName: data.user.name, // name -> doctorName
+            email: data.user.email,
+            profileImage: data.user.image, // image -> profileImage
+            gender,
+            phone,
+            role: userRole,
+            specialization,
+            qualifications,
+            experience: Number(experience), // ডেটাবেজ স্কিমা অনুযায়ী Number এ কনভার্ট করে নেওয়া নিরাপদ
+            consultationFee: Number(fee), // fee -> consultationFee
+            hospitalName: hospital, // hospital -> hospitalName
+
+            // ডক্টর স্কিমার বাকি প্রয়োজনীয় ফিল্ডগুলো (যদি ফর্মে থাকে, নাহলে ডিফল্ট অ্যারে/ভ্যালু)
+            availableDays: availableDays || ["Saturday", "Monday", "Wednesday"],
+            availableSlots: availableSlots || [
+              "10:00 AM - 01:00 PM",
+              "05:00 PM - 08:00 PM",
+            ],
+            verificationStatus: "pending", // সাইন-আপের সময় ডিফল্ট 'pending' বা 'verified' দিতে পারেন
+          };
+
+          const res = await AddNewDoctor(doctorData);
+          console.log("Doctor db response:", res);
+        }
+
+        // সবকিছু সফল হলে সাকসেস মোডাল দেখান
+        setShowSuccess(true);
+      }
     } catch (err) {
       setError("root", {
         type: "manual",
