@@ -4,7 +4,7 @@ function Navbar() {
   const navlink = navlinks;
   // console.log(navlink);
 
-  return <div>Navbar</div>;
+  return <div></div>;
 }
 
 export default Navbar;

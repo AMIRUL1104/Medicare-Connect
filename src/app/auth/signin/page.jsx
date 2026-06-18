@@ -1,5 +1,7 @@
-function SigninPage() {
-  return <div>SigninPage</div>;
+import React from "react";
+
+function page() {
+  return <div>page</div>;
 }
 
-export default SigninPage;
+export default page;
