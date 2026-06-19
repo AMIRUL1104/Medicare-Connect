@@ -12,12 +12,11 @@ import { FieldError } from "@/components/ui/FieldError";
 import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
-import { GoogleSigninButton } from "@/components/ui/googleSigninButton";
+import { GoogleSigninButton } from "@/components/ui/GoogleSigninButton";
 
 export default function LoginForm() {
   const router = useRouter();
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -92,7 +91,10 @@ export default function LoginForm() {
 
       {/* Google Sign In Button */}
 
-      <GoogleSigninButton />
+      <GoogleSigninButton
+        isGoogleLoading={isGoogleLoading}
+        setIsGoogleLoading={setIsGoogleLoading}
+      />
 
       {/* Divider */}
       <div className="flex items-center gap-3 my-5">

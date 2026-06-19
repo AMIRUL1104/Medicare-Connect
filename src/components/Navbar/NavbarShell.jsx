@@ -48,7 +48,7 @@ export default function NavbarShell({ user }) {
             {user ? (
               <>
                 <Link
-                  href="/dashboard"
+                  href={`/dashboard/${user.role}`}
                   className="px-4 py-2 rounded-[8px] text-sm font-semibold text-white transition-all duration-200 hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-px"
                   style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
                 >
@@ -76,13 +76,13 @@ export default function NavbarShell({ user }) {
             ) : (
               <>
                 <Link
-                  href="/login"
+                  href="/auth/signin"
                   className="text-sm font-medium text-[#1E293B] hover:text-[#0EA5E9] transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/auth/signup"
                   className="px-4 py-2 rounded-[8px] text-sm font-semibold text-white transition-all duration-200 hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-px"
                   style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
                 >

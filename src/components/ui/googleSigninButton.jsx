@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-export function GoogleSigninButton() {
+export function GoogleSigninButton({ isGoogleLoading, setIsGoogleLoading }) {
   // ── Google Sign In ──────────────────────────────
   //   async function handleGoogleSignup() {
   //     setIsGoogleLoading(true);
@@ -57,4 +57,4 @@ export function GoogleSigninButton() {
   );
 }
 
-export default googleSigninButton;
+export default GoogleSigninButton;

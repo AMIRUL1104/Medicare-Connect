@@ -15,7 +15,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { AddNewDoctor, AddNewPatient } from "@/services/server/action";
-import { GoogleSigninButton } from "../ui/googleSigninButton";
+import GoogleSigninButton from "../ui/GoogleSigninButton";
 
 // ─── Reusable field components ────────────────────────────────────
 
@@ -24,7 +24,6 @@ import { GoogleSigninButton } from "../ui/googleSigninButton";
 export default function SignupForm() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -194,8 +193,10 @@ export default function SignupForm() {
         </div>
 
         {/* Google button */}
-
-        <GoogleSigninButton />
+        <GoogleSigninButton
+          isGoogleLoading={isGoogleLoading}
+          setIsGoogleLoading={setIsGoogleLoading}
+        />
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-5">
