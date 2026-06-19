@@ -1,10 +1,11 @@
-import { navlinks } from "../shared/Navlinks";
+import { getUserSession } from "@/services/core/session";
+import NavbarShell from "@/components/Navbar/NavbarShell";
 
-function Navbar() {
-  const navlink = navlinks;
-  // console.log(navlink);
+async function Navbar() {
+  const user = await getUserSession();
 
-  return <div></div>;
+  // user is null/undefined when not logged in — NavbarShell handles both states
+  return <NavbarShell user={user || null} />;
 }
 
 export default Navbar;
