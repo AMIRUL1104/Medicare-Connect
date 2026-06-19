@@ -28,9 +28,7 @@ export default function NavLinks({
   return (
     <ul
       className={
-        direction === "row"
-          ? "flex items-center gap-7"
-          : "flex flex-col gap-1"
+        direction === "row" ? "flex items-center gap-7" : "flex flex-col gap-1"
       }
     >
       {NAV_LINKS.map((link) => {
