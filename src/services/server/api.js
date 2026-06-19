@@ -1,12 +1,14 @@
 // ========== all companies for admin =====================
-// import { serverFetch } from "@/lib/core/serverFetch";
 
-// export const getAllCompanies = async (status) => {
-//   return serverFetch(`/api/companies?status=${status}`);
-// };
+import { serverFetch } from "../core/serverFetch";
 
-// import { serverFetch } from "@/lib/core/serverFetch";
+export const getAllDoctors = async () => {
+  return serverFetch(`/api/doctors`);
+};
+export const getLimetedDoctors = async () => {
+  return serverFetch(`/api/doctors?limit=6`);
+};
 
-// export const getPlanById = async (planId) => {
-//   return serverFetch(`/api/plans?plan_id=${planId}`);
-// };
+export const getPlanById = async (planId) => {
+  return serverFetch(`/api/plans?plan_id=${planId}`);
+};
