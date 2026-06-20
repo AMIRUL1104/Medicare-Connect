@@ -1,22 +1,26 @@
 import FadeIn from "@/components/about/FadeIn";
 import Counter from "@/components/about/Counter";
-
+import { getStats } from "@/services/server/api";
 // Server Component. The card markup, gradient background, and labels
 // are all server-rendered. Only <FadeIn> (entrance) and <Counter>
 // (count-up numbers) are client islands — everything else is static HTML.
 
-const STATS = [
-  { label: "Total Doctors", value: 2400, suffix: "+" },
-  { label: "Total Patients", value: 50000, suffix: "+" },
-  { label: "Total Appointments", value: 120000, suffix: "+" },
-  { label: "Total Reviews", value: 18500, suffix: "+" },
-];
+export default async function StatsSection() {
+  const { totalDoctors, totalPatients, totalAppointments, totalReviews } =
+    await getStats();
+  const STATS = [
+    { label: "Total Doctors", value: totalDoctors, suffix: "+" },
+    { label: "Total Patients", value: totalPatients, suffix: "+" },
+    { label: "Total Appointments", value: totalAppointments, suffix: "+" },
+    { label: "Total Reviews", value: totalReviews, suffix: "+" },
+  ];
 
-export default function StatsSection() {
   return (
     <section
       className="py-16 lg:py-20 relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%)" }}
+      style={{
+        background: "linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%)",
+      }}
     >
       <div
         className="absolute inset-0 opacity-10"
@@ -30,7 +34,9 @@ export default function StatsSection() {
       <div className="relative max-w-6xl mx-auto px-4 lg:px-8">
         <FadeIn direction="up">
           <div className="text-center mb-12">
-            <h2 className="text-2xl lg:text-3xl font-bold text-white">Platform Statistics</h2>
+            <h2 className="text-2xl lg:text-3xl font-bold text-white">
+              Platform Statistics
+            </h2>
             <p className="text-white/70 mt-2 text-sm lg:text-base">
               Trusted by thousands across the country.
             </p>
@@ -44,7 +50,9 @@ export default function StatsSection() {
                 <div className="text-2xl sm:text-3xl font-bold text-white mb-1">
                   <Counter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <p className="text-white/70 text-xs sm:text-sm font-medium">{stat.label}</p>
+                <p className="text-white/70 text-xs sm:text-sm font-medium">
+                  {stat.label}
+                </p>
               </div>
             </FadeIn>
           ))}

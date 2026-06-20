@@ -20,7 +20,7 @@ export const NAV_LINKS = [
  * @param {string} linkClassName - override default link styling
  */
 export default function NavLinks({
-  activeHref = "",
+  activeHref = "/",
   direction = "row",
   onLinkClick,
   linkClassName,

@@ -8,9 +8,9 @@
  * (count-up number) are client islands.
  */
 
-import { getPlatformStats } from "@/lib/getPlatformStats";
 import FadeIn from "./FadeIn";
 import StatCounter from "./StatCounter";
+import { getStats } from "@/services/server/api";
 
 const STAT_ICONS = {
   doctors: (
@@ -129,9 +129,9 @@ function buildStatCards(stats) {
 
 export default async function StatsSection() {
   // Server-side data fetch — mock for now, swap for real DB query later.
-  const stats = await getPlatformStats();
+  const stats = await getStats();
   const cards = buildStatCards(stats);
-
+  console.log(stats);
   return (
     <section
       className="bg-[#F8FAFC] py-16 lg:py-20"

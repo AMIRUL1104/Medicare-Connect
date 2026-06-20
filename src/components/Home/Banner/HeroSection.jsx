@@ -1,7 +1,7 @@
 import HeroCTAButtons from "../../shared/HeroCTAButtons";
 import HeroIllustration from "./HeroIllustration";
 import TrustFeatures from "./TrustFeatures";
-
+import { getStats } from "@/services/server/api";
 /**
  * HeroSection — Server Component.
  *
@@ -13,7 +13,8 @@ import TrustFeatures from "./TrustFeatures";
  * navigation). Headline, description, badges, and illustration are
  * all static server-rendered markup with animate.css classes.
  */
-export default function HeroSection() {
+export default async function HeroSection() {
+  const { totalDoctors } = await getStats();
   return (
     <section className="relative overflow-hidden bg-[#F8FAFC]">
       {/* Decorative background gradient — pure CSS */}
@@ -72,7 +73,7 @@ export default function HeroSection() {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
                 <div>
                   <p className="text-xs font-semibold text-[#1E293B] leading-tight">
-                    2,400+ Doctors
+                    {totalDoctors} doctors
                   </p>
                   <p className="text-[10px] text-[#64748B] leading-tight">
                     Available now

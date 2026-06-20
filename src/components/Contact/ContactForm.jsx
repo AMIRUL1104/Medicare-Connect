@@ -59,7 +59,9 @@ export default function ContactForm() {
 
   return (
     <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 lg:p-8 shadow-[0_4px_24px_rgba(14,165,233,0.06)]">
-      <h2 className="text-xl lg:text-2xl font-bold text-[#1E293B] mb-1.5">Send Us a Message</h2>
+      <h2 className="text-xl lg:text-2xl font-bold text-[#1E293B] mb-1.5">
+        Send Us a Message
+      </h2>
       <p className="text-[#64748B] text-sm mb-6">
         Fill out the form below and our team will get back to you shortly.
       </p>
@@ -71,12 +73,24 @@ export default function ContactForm() {
           className="flex items-start gap-3 bg-[#F0FDF4] border border-[#D1FAE5] rounded-xl p-4 mb-6"
         >
           <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#10B981] text-white shrink-0 mt-0.5">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={3}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </span>
           <div>
-            <p className="text-sm font-semibold text-[#1E293B]">Message sent successfully</p>
+            <p className="text-sm font-semibold text-[#1E293B]">
+              Message sent successfully
+            </p>
             <p className="text-xs text-[#64748B] mt-0.5">
               Thanks for reaching out — our team will respond within 24 hours.
             </p>
@@ -91,14 +105,26 @@ export default function ContactForm() {
           className="flex items-start gap-3 bg-[#FFF5F5] border border-[#FECACA] rounded-xl p-4 mb-6"
         >
           <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#EF4444] text-white shrink-0 mt-0.5">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={3}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </span>
           <div>
-            <p className="text-sm font-semibold text-[#1E293B]">Something went wrong</p>
+            <p className="text-sm font-semibold text-[#1E293B]">
+              Something went wrong
+            </p>
             <p className="text-xs text-[#64748B] mt-0.5">
-              We couldn't send your message. Please try again in a moment.
+              {` We couldn't send your message. Please try again in a moment.`}
             </p>
           </div>
         </div>
@@ -106,7 +132,6 @@ export default function ContactForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="space-y-4">
-
           {/* Full Name */}
           <div>
             <Label htmlFor="fullName">
@@ -120,7 +145,10 @@ export default function ContactForm() {
               hasError={!!errors.fullName}
               {...register("fullName", {
                 required: "Full name is required.",
-                minLength: { value: 2, message: "Name must be at least 2 characters." },
+                minLength: {
+                  value: 2,
+                  message: "Name must be at least 2 characters.",
+                },
               })}
             />
             <FieldError error={errors.fullName} />
@@ -183,7 +211,10 @@ export default function ContactForm() {
               hasError={!!errors.subject}
               {...register("subject", {
                 required: "Subject is required.",
-                minLength: { value: 3, message: "Subject must be at least 3 characters." },
+                minLength: {
+                  value: 3,
+                  message: "Subject must be at least 3 characters.",
+                },
               })}
             />
             <FieldError error={errors.subject} />
@@ -207,7 +238,10 @@ export default function ContactForm() {
               ].join(" ")}
               {...register("message", {
                 required: "Message is required.",
-                minLength: { value: 10, message: "Message must be at least 10 characters." },
+                minLength: {
+                  value: 10,
+                  message: "Message must be at least 10 characters.",
+                },
               })}
             />
             <FieldError error={errors.message} />

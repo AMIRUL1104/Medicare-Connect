@@ -34,8 +34,8 @@ export const getLimitedDoctors = async ({
   return result;
 };
 
-export const getAllDoctors = async () => {
-  return serverFetch(`/api/doctors`);
+export const getStats = async () => {
+  return serverFetch(`/api/stats`);
 };
 
 export const getPlanById = async (planId) => {

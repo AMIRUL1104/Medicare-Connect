@@ -2,8 +2,11 @@
 
 import { patientReviews } from "@/lib/data/reviews";
 import ReviewsMarquee from "./ReviewsMarquee";
+import { getStats } from "@/services/server/api";
 
-export default function PatientSuccessStories() {
+export default async function PatientSuccessStories() {
+  const { totalDoctors, totalPatients, totalAppointments, totalReviews } =
+    await getStats();
   return (
     <section className="py-20 bg-[#F0F7FC] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
@@ -21,7 +24,7 @@ export default function PatientSuccessStories() {
           </h2>
 
           <p className="text-slate-500 text-base max-w-lg leading-relaxed">
-            {` Over 50,000 patients trust MediCare Connect for consultations, bookings,
+            {` Over ${totalPatients} patients trust MediCare Connect for consultations, bookings,
             and prescriptions — here's what they say.`}
           </p>
         </div>
@@ -61,12 +64,16 @@ export default function PatientSuccessStories() {
           </div>
           <div className="w-px h-4 bg-slate-300 hidden sm:block" />
           <div className="flex items-center gap-2">
-            <span className="text-[#1A9DD9] font-bold text-lg">50,000+</span>
+            <span className="text-[#1A9DD9] font-bold text-lg">
+              {totalPatients}
+            </span>
             <span>patients served</span>
           </div>
           <div className="w-px h-4 bg-slate-300 hidden sm:block" />
           <div className="flex items-center gap-2">
-            <span className="text-[#1A9DD9] font-bold text-lg">2,400+</span>
+            <span className="text-[#1A9DD9] font-bold text-lg">
+              {totalDoctors}
+            </span>
             <span>verified doctors</span>
           </div>
         </div>

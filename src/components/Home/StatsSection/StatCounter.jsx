@@ -9,8 +9,6 @@ import CountUp from "react-countup";
  * StatsSection and StatCard stay Server Components.
  */
 export default function StatCounter({ value, suffix = "" }) {
-  console.log(value);
-
   return (
     <CountUp
       start={0}
