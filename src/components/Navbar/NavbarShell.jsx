@@ -33,8 +33,7 @@ export default function NavbarShell({ user }) {
       ].join(" ")}
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-[68px]">
-
+        <div className="flex items-center justify-between h-16 lg:h-17">
           {/* Logo + desktop links */}
           <div className="flex items-center gap-9">
             <Logo size="md" />
@@ -49,8 +48,10 @@ export default function NavbarShell({ user }) {
               <>
                 <Link
                   href={`/dashboard/${user.role}`}
-                  className="px-4 py-2 rounded-[8px] text-sm font-semibold text-white transition-all duration-200 hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-px"
-                  style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
+                  className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-px"
+                  style={{
+                    background: "linear-gradient(135deg, #0EA5E9, #0284C7)",
+                  }}
                 >
                   Dashboard
                 </Link>
@@ -60,7 +61,12 @@ export default function NavbarShell({ user }) {
                   aria-label="Notifications"
                   className="relative p-1.5 text-[#64748B] hover:text-[#0EA5E9] transition-colors"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -77,14 +83,16 @@ export default function NavbarShell({ user }) {
               <>
                 <Link
                   href="/auth/signin"
-                  className="text-sm font-medium text-[#1E293B] hover:text-[#0EA5E9] transition-colors"
+                  className="text-sm font-medium text-[#a5bee0] hover:text-[#0EA5E9] transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/auth/signup"
-                  className="px-4 py-2 rounded-[8px] text-sm font-semibold text-white transition-all duration-200 hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-px"
-                  style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
+                  className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:shadow-[0_4px_12px_rgba(14,165,233,0.3)] hover:-translate-y-px"
+                  style={{
+                    background: "linear-gradient(135deg, #0EA5E9, #0284C7)",
+                  }}
                 >
                   Sign Up
                 </Link>

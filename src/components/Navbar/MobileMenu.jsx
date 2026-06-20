@@ -25,8 +25,18 @@ export default function MobileMenu({ user }) {
         aria-label="Open menu"
         className="p-2 -mr-2 text-[#1E293B]"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       </button>
 
@@ -41,7 +51,7 @@ export default function MobileMenu({ user }) {
       {/* Slide-in panel */}
       <div
         className={[
-          "fixed top-0 right-0 h-full w-[82%] max-w-[340px] bg-white z-50 shadow-2xl",
+          "fixed top-0 right-0 h-full w-[82%] max-w-85 bg-white z-50 shadow-2xl",
           "transition-transform duration-300 ease-out lg:hidden",
           open ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
@@ -50,9 +60,23 @@ export default function MobileMenu({ user }) {
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b border-[#E2E8F0]">
             <Logo size="sm" />
-            <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-1 text-[#64748B]">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="p-1 text-[#64748B]"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -61,9 +85,9 @@ export default function MobileMenu({ user }) {
           {user ? (
             <div className="p-5 border-b border-[#E2E8F0]">
               <div className="flex items-center gap-3 bg-[#F0F9FF] rounded-xl p-3.5">
-                {user.photoUrl ? (
+                {user.image ? (
                   <Image
-                    src={user.photoUrl}
+                    src={user.image}
                     alt={user.name}
                     width={44}
                     height={44}
@@ -75,25 +99,31 @@ export default function MobileMenu({ user }) {
                   </div>
                 )}
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-[#1E293B] truncate">{user.name}</p>
-                  <p className="text-xs text-[#64748B] truncate">{user.email}</p>
+                  <p className="text-sm font-semibold text-[#1E293B] truncate">
+                    {user.name}
+                  </p>
+                  <p className="text-xs text-[#64748B] truncate">
+                    {user.email}
+                  </p>
                 </div>
               </div>
             </div>
           ) : (
             <div className="p-5 border-b border-[#E2E8F0] flex gap-2">
               <Link
-                href="/login"
+                href="/auth/signin"
                 onClick={() => setOpen(false)}
                 className="flex-1 text-center py-2.5 rounded-lg border border-[#E2E8F0] text-sm font-semibold text-[#1E293B]"
               >
                 Sign In
               </Link>
               <Link
-                href="/signup"
+                href="/auth/signup"
                 onClick={() => setOpen(false)}
                 className="flex-1 text-center py-2.5 rounded-lg text-sm font-semibold text-white"
-                style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
+                style={{
+                  background: "linear-gradient(135deg, #0EA5E9, #0284C7)",
+                }}
               >
                 Sign Up
               </Link>
@@ -110,7 +140,7 @@ export default function MobileMenu({ user }) {
 
             {user && (
               <Link
-                href="/dashboard"
+                href={`/dashboard/${user.role}`}
                 onClick={() => setOpen(false)}
                 className="block py-3 px-1 text-[15px] font-medium text-[#0EA5E9] border-b border-[#F1F5F9]"
               >
@@ -125,7 +155,9 @@ export default function MobileMenu({ user }) {
               href="/appointments/book"
               onClick={() => setOpen(false)}
               className="block w-full text-center py-3 rounded-[10px] text-sm font-semibold text-white transition-all duration-200"
-              style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
+              style={{
+                background: "linear-gradient(135deg, #0EA5E9, #0284C7)",
+              }}
             >
               Book Appointment
             </Link>

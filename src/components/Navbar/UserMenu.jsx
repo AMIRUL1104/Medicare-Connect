@@ -3,11 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function UserMenu({ user }) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
-
+  const router = useRouter();
   // Close on outside click
   useEffect(() => {
     function handleClickOutside(e) {
@@ -27,9 +29,9 @@ export default function UserMenu({ user }) {
         aria-haspopup="true"
         aria-expanded={open}
       >
-        {user?.photoUrl ? (
+        {user?.image ? (
           <Image
-            src={user.photoUrl}
+            src={user.image}
             alt={user.name}
             width={32}
             height={32}
@@ -46,14 +48,21 @@ export default function UserMenu({ user }) {
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl border border-[#E2E8F0] shadow-lg py-2 z-50 animate-[fadeIn_0.15s_ease-out]">
           <div className="px-4 py-2 border-b border-[#E2E8F0] mb-1">
-            <p className="text-sm font-semibold text-[#1E293B] truncate">{user?.name}</p>
+            <p className="text-sm font-semibold text-[#1E293B] truncate">
+              {user?.name}
+            </p>
             <p className="text-xs text-[#64748B] truncate">{user?.email}</p>
           </div>
 
@@ -81,10 +90,16 @@ export default function UserMenu({ user }) {
 
           <div className="border-t border-[#E2E8F0] mt-1 pt-1">
             <button
-              onClick={() => {
+              onClick={async () => {
                 setOpen(false);
-                // Replace with your real sign-out logic
-                // e.g. signOut({ callbackUrl: "/login" })
+                await authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: () => {
+                      router.push("/auth/signin"); // redirect to login page
+                      router.refresh();
+                    },
+                  },
+                });
               }}
               className="w-full text-left px-4 py-2 text-sm text-[#EF4444] hover:bg-[#FFF5F5] transition-colors"
             >

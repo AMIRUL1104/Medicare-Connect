@@ -49,6 +49,7 @@ export default function LoginForm() {
       if (session) {
         toast.success("Welcome back to MediCare Connect!");
         router.push("/");
+        router.refresh();
       }
     } catch (err) {
       setError("root", {

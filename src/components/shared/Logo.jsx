@@ -8,7 +8,11 @@ import Link from "next/link";
  * @param {boolean} showText - show "MediCare Connect" text next to icon
  * @param {string} textColor - tailwind text color class for the wordmark
  */
-export default function Logo({ size = "md", showText = true, textColor = "text-[#1E293B]" }) {
+export default function Logo({
+  size = "md",
+  showText = true,
+  textColor = "text-[#a5bee0]",
+}) {
   const sizes = {
     sm: { box: "w-7 h-7", icon: 18, text: "text-sm" },
     md: { box: "w-9 h-9", icon: 22, text: "text-lg" },

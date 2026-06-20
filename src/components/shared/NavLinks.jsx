@@ -38,16 +38,13 @@ export default function NavLinks({
             <Link
               href={link.href}
               onClick={onLinkClick}
-              className={
-                linkClassName ||
-                [
-                  "text-sm font-medium transition-colors duration-200",
-                  direction === "col" ? "block py-2.5 px-1" : "",
-                  isActive
-                    ? "text-[#0EA5E9]"
-                    : "text-[#1E293B] hover:text-[#0EA5E9]",
-                ].join(" ")
-              }
+              className={`text-sm font-medium transition-colors duration-200 ${
+                direction === "col" ? "block py-2.5 px-1" : ""
+              } ${
+                isActive
+                  ? "text-[#0EA5E9]"
+                  : "text-[#a5bee0] hover:text-[#0EA5E9]"
+              } ${linkClassName || ""}`} // বাইরে থেকে আসা ক্লাস শেষে যুক্ত হবে
             >
               {link.label}
             </Link>
