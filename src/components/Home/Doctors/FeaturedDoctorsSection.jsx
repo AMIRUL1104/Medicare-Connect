@@ -1,8 +1,7 @@
 import Link from "next/link";
 import FadeIn from "./FadeIn";
 import DoctorCard from "./DoctorCard";
-import { getLimitedDoctors } from "./getLimitedDoctors";
-import { getLimetedDoctors } from "@/services/server/api";
+import { getLimitedDoctors } from "@/services/server/api";
 
 /**
  * FeaturedDoctorsSection — async Server Component.
@@ -13,7 +12,7 @@ import { getLimetedDoctors } from "@/services/server/api";
  * links, hover states) is server-rendered static HTML.
  */
 export default async function FeaturedDoctorsSection() {
-  const doctors = await getLimetedDoctors(); // returns up to 6+ doctors
+  const { doctors, total } = await getLimitedDoctors(); // returns up to 6+ doctors
 
   return (
     <section

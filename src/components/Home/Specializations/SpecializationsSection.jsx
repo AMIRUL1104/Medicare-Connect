@@ -14,7 +14,7 @@ const SPECIALIZATIONS = [
   {
     name: "Cardiology",
     desc: "Heart health & vascular care",
-    href: "/doctors?specialization=cardiology",
+    href: "/doctors?page=1&search=cardiology",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -40,7 +40,7 @@ const SPECIALIZATIONS = [
   {
     name: "Neurology",
     desc: "Brain & nervous system",
-    href: "/doctors?specialization=neurology",
+    href: "/doctors?page=1&search=neurology",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ const SPECIALIZATIONS = [
   {
     name: "Orthopedics",
     desc: "Bones, joints & muscles",
-    href: "/doctors?specialization=orthopedics",
+    href: "/doctors?page=1&search=orthopedics",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ const SPECIALIZATIONS = [
   {
     name: "Pediatrics",
     desc: "Child & infant healthcare",
-    href: "/doctors?specialization=pediatrics",
+    href: "/doctors?page=1&search=pediatrics",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -103,7 +103,7 @@ const SPECIALIZATIONS = [
   {
     name: "Dermatology",
     desc: "Skin, hair & nail care",
-    href: "/doctors?specialization=dermatology",
+    href: "/doctors?page=1&search=dermatology",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -124,7 +124,7 @@ const SPECIALIZATIONS = [
   {
     name: "Gynecology",
     desc: "Women's reproductive health",
-    href: "/doctors?specialization=gynecology",
+    href: "/doctors?page=1&search=gynecology",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -145,7 +145,7 @@ const SPECIALIZATIONS = [
   {
     name: "Ophthalmology",
     desc: "Eye care & vision health",
-    href: "/doctors?specialization=ophthalmology",
+    href: "/doctors?page=1&search=ophthalmology",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -166,7 +166,7 @@ const SPECIALIZATIONS = [
   {
     name: "Dentistry",
     desc: "Oral & dental health",
-    href: "/doctors?specialization=dentistry",
+    href: "/doctors?page=1&search=dentistry",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -186,7 +186,7 @@ const SPECIALIZATIONS = [
   {
     name: "Psychiatry",
     desc: "Mental health & wellbeing",
-    href: "/doctors?specialization=psychiatry",
+    href: "/doctors?page=1&search=psychiatry",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -212,7 +212,7 @@ const SPECIALIZATIONS = [
   {
     name: "General Medicine",
     desc: "Everyday health & checkups",
-    href: "/doctors?specialization=general-medicine",
+    href: "/doctors?page=1&search=general-medicine",
     icon: (
       <svg
         viewBox="0 0 24 24"
