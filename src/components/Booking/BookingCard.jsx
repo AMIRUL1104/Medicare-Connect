@@ -9,6 +9,7 @@ import { formatDateKey } from "./slotUtils";
 import DateStep from "./DateStep";
 import SlotStep from "./SlotStep";
 import SymptwomsStep from "./SymptomsStep";
+import SymptomsStep from "./SymptomsStep";
 
 /**
  * BookingCard — the only "orchestrator" client component.

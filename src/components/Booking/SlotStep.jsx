@@ -126,7 +126,7 @@ export default function SlotStep({
                   onClick={() => onSelectSlot(slot)}
                   aria-pressed={isSelected}
                   className={[
-                    "py-2.5 px-2 rounded-lg text-xs font-medium border-[1.5px] transition-all duration-200",
+                    "py-3 px-2 rounded-lg text-sm font-medium border-[1.5px] transition-all duration-200",
                     isBooked
                       ? "border-[#E2E8F0] bg-[#F8FAFC] text-[#CBD5E1] cursor-not-allowed line-through"
                       : isSelected

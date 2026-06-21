@@ -12,6 +12,7 @@
     "@better-auth/mongo-adapter": "^1.6.19",
     "@heroui/react": "^3.2.1",
     "@heroui/styles": "^3.2.1",
+    "@internationalized/date": "^3.12.2",
     "animate.css": "^4.1.1",
     "better-auth": "^1.6.19",
     "lucide-react": "^1.21.0",
