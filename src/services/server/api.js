@@ -34,10 +34,15 @@ export const getLimitedDoctors = async ({
   return result;
 };
 
+// get doctors by id
+export const getDoctorById = async (id) => {
+  return serverFetch(`/api/doctors/${id}`);
+};
+
 export const getStats = async () => {
   return serverFetch(`/api/stats`);
 };
 
-export const getPlanById = async (planId) => {
-  return serverFetch(`/api/plans?plan_id=${planId}`);
+export const getApointmentsByDoctorId = async (doctorId, date) => {
+  return serverFetch(`/api/appointmentslots/${doctorId}?date=${date}`);
 };
