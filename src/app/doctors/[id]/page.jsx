@@ -29,6 +29,7 @@ export default async function DoctorBookingPage({ params }) {
   const { id } = await params;
   const doctor = await getDoctorById(id);
   const user = await getUserSession();
+  console.log(user);
 
   if (!doctor) {
     notFound();
@@ -47,7 +48,7 @@ export default async function DoctorBookingPage({ params }) {
 
           {/* Right / below: Sticky booking card (35% desktop) */}
           <div>
-            <BookingCard doctor={doctor} useId={user.id} />
+            <BookingCard doctor={doctor} user={user} />
           </div>
         </div>
       </div>

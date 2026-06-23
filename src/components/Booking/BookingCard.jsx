@@ -10,6 +10,7 @@ import DateStep from "./DateStep";
 import SlotStep from "./SlotStep";
 import SymptwomsStep from "./SymptomsStep";
 import SymptomsStep from "./SymptomsStep";
+import { AddNewAppointment } from "@/services/server/action";
 
 /**
  * BookingCard — the only "orchestrator" client component.
@@ -23,7 +24,7 @@ import SymptomsStep from "./SymptomsStep";
  * replace getCurrentPatientId() with your real auth lookup.
  */
 
-export default function BookingCard({ doctor, userId }) {
+export default function BookingCard({ doctor, user }) {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -52,6 +53,7 @@ export default function BookingCard({ doctor, userId }) {
 
   const canConfirm = Boolean(selectedDate && selectedSlot && isValid);
 
+  // payment confirmation function
   async function onSubmit(formData) {
     if (!canConfirm) return;
 
@@ -59,25 +61,30 @@ export default function BookingCard({ doctor, userId }) {
 
     const payload = {
       doctorId: doctor._id,
-      patientId: userId,
+      patientId: user.id,
+      doctorName: doctor.doctorName,
+      patientName: user.name,
+      patientEmail: user.email,
       date: formatDateKey(selectedDate),
       slot: selectedSlot,
       symptoms: formData.symptoms,
       status: "pending",
     };
 
-    // try {
-    //   const data = await createAppointment(payload);
+    try {
+      const data = await AddNewAppointment(payload);
+      console.log(data);
 
-    //   if (!data || data.success === false) {
-    //     throw new Error("Failed to create appointment");
-    //   }
+      if (!data || data.success === false) {
+        throw new Error("Failed to create appointment");
+      }
 
-    //   router.push(`/payment/${data.appointmentId || data._id}`);
-    // } catch (error) {
-    //   console.error("Booking error:", error);
-    //   setSubmitStatus("error");
-    // }
+      router.push(`/doctors/${doctor._id}/payment/${data.insertedId}`);
+      // redirect to payment page
+    } catch (error) {
+      console.error("Booking error:", error);
+      setSubmitStatus("error");
+    }
     console.log(payload);
   }
 

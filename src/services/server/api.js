@@ -42,6 +42,9 @@ export const getDoctorById = async (id) => {
 export const getStats = async () => {
   return serverFetch(`/api/stats`);
 };
+export const getAppointmentByPaymentId = async (id) => {
+  return serverFetch(`/api/appointments/${id}`);
+};
 
 export const getApointmentsByDoctorId = async (doctorId, date) => {
   return serverFetch(`/api/appointmentslots/${doctorId}?date=${date}`);
