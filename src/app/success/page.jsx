@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { stripe } from "@/lib/stripe"; // আপনার পাথ ঠিক আছে
-import { updateAppointmentStatus } from "@/services/server/action";
+import { newPayment, updateAppointmentStatus } from "@/services/server/action";
 import { getAppointmentByPaymentId } from "@/services/server/api";
 
 export default async function Success({ searchParams }) {
@@ -36,11 +36,29 @@ export default async function Success({ searchParams }) {
       const appointment = await getAppointmentByPaymentId(appointmentId);
       const {
         doctorName,
-        appointmentFee,
-        appointmentDate,
-        appointmentSlot,
+        consultationFee,
+        date,
+        slot,
         patientName,
+        patientId,
+        doctorId,
       } = appointment;
+
+      const paymentHistory = {
+        appointmentId: appointmentId,
+        patientId: patientId,
+        doctorId: doctorId,
+        amount: consultationFee,
+        transactionId: checkoutSession.payment_intent.id,
+        paymentDate: date,
+        doctorName: doctorName,
+        patientName: patientName,
+        appointmentDate: date,
+        appointmentTime: slot,
+      };
+
+      const res = await newPayment(paymentHistory);
+      // console.log("Payment db response:", res);
 
       return (
         <main className="bg-[#F8FAFC] min-h-screen flex items-center justify-center p-4 antialiased">
@@ -107,7 +125,7 @@ export default async function Success({ searchParams }) {
               <div className="flex justify-between items-center">
                 <span className="text-xs font-medium text-[#64748B]">Date</span>
                 <span className="text-sm font-semibold text-[#1E293B]">
-                  {appointmentDate}
+                  {date}
                 </span>
               </div>
 
@@ -116,7 +134,7 @@ export default async function Success({ searchParams }) {
                   Time Slot
                 </span>
                 <span className="text-sm font-semibold text-[#0EA5E9] bg-[#F0F9FF] px-2.5 py-1 rounded-md text-xs border border-[#BEE3F8]">
-                  {appointmentSlot}
+                  {slot}
                 </span>
               </div>
 
@@ -127,7 +145,7 @@ export default async function Success({ searchParams }) {
                   Amount Paid
                 </span>
                 <span className="text-base font-bold text-[#16A34A]">
-                  ${appointmentFee}
+                  ${consultationFee}
                 </span>
               </div>
             </div>

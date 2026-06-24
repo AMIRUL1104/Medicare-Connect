@@ -42,10 +42,24 @@ export const getDoctorById = async (id) => {
 export const getStats = async () => {
   return serverFetch(`/api/stats`);
 };
+
+// appointments related data fetching
 export const getAppointmentByPaymentId = async (id) => {
-  return serverFetch(`/api/appointments/${id}`);
+  return serverFetch(`/api/appointments/${id}?forPayment=true`);
+};
+export const getAppointmentByPatientId = async (id) => {
+  return serverFetch(`/api/appointments/${id}?forPatient=true`);
 };
 
 export const getApointmentsByDoctorId = async (doctorId, date) => {
   return serverFetch(`/api/appointmentslots/${doctorId}?date=${date}`);
+};
+
+// payments related data fetching
+export const getPaymentsByDoctorId = async (doctorId) => {
+  return serverFetch(`/api/payment/${doctorId}?forDoctor=true`);
+};
+
+export const getPaymentsByPatientId = async (patientId) => {
+  return serverFetch(`/api/payment/${patientId}?forPatient=true`);
 };

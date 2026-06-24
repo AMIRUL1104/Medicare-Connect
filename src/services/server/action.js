@@ -12,3 +12,6 @@ export const AddNewAppointment = async (data) => {
 export const updateAppointmentStatus = async (data) => {
   return serverMutation("/api/appointments", data, "PATCH");
 };
+export const newPayment = async (data) => {
+  return serverMutation("/api/payment", data);
+};

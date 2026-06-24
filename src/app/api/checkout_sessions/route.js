@@ -9,7 +9,7 @@ export async function POST(request) {
 
     // ১. রিকোয়েস্ট বডি থেকে ডেটা নিন
     const body = await request.json();
-    console.log("Backend Received Body:", body); // টার্মিনালে চেক করার জন্য লগার
+    // console.log("Backend Received Body:", body); // টার্মিনালে চেক করার জন্য লগার
 
     const { appointmentId, doctorName, appointmentFee } = body;
 

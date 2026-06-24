@@ -68,24 +68,26 @@ export default function BookingCard({ doctor, user }) {
       date: formatDateKey(selectedDate),
       slot: selectedSlot,
       symptoms: formData.symptoms,
+      consultationFee: doctor.consultationFee,
       status: "pending",
     };
 
     try {
       const data = await AddNewAppointment(payload);
-      console.log(data);
+      data;
 
       if (!data || data.success === false) {
         throw new Error("Failed to create appointment");
       }
 
-      router.push(`/doctors/${doctor._id}/payment/${data.insertedId}`);
+      if (data.insertedId) {
+        router.push(`/doctors/${doctor._id}/payment/${data.insertedId}`);
+      }
       // redirect to payment page
     } catch (error) {
       console.error("Booking error:", error);
       setSubmitStatus("error");
     }
-    console.log(payload);
   }
 
   return (

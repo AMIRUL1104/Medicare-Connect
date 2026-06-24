@@ -13,16 +13,11 @@ async function PaymentPage({ params }) {
   const appointment = await getAppointmentByPaymentId(paymentId);
   const doctor = await getDoctorById(id);
 
-  const {
-    doctorName,
-    appointmentFee,
-    appointmentDate,
-    appointmentSlot,
-    patientName,
-  } = appointment;
+  const { doctorName, appointmentFee, date, slot, patientName } = appointment;
   // ডক্টরের এক্সট্রা ইনফো (যেমন স্পেশালাইজেশন বা ইমেজ) যদি অবজেক্টে থাকে, তা ডিস্ট্রাকচার করে নিতে পারেন
   const specialization = doctor?.specialization || "Specialist";
   const hospital = doctor?.hospital || "Medical Center";
+  const consultationFee = doctor?.consultationFee || "Free";
 
   return (
     <main className="bg-[#F8FAFC] min-h-screen py-10 lg:py-16 antialiased">
@@ -112,7 +107,7 @@ async function PaymentPage({ params }) {
                       Date
                     </p>
                     <p className="text-sm font-semibold text-[#1E293B]">
-                      {appointmentDate}
+                      {date}
                     </p>
                   </div>
                 </div>
@@ -139,7 +134,7 @@ async function PaymentPage({ params }) {
                       Time Slot
                     </p>
                     <p className="text-sm font-semibold text-[#0EA5E9]">
-                      {appointmentSlot}
+                      {slot}
                     </p>
                   </div>
                 </div>
@@ -165,7 +160,7 @@ async function PaymentPage({ params }) {
                 <div className="flex justify-between text-[#64748B]">
                   <span>Consultation Fee</span>
                   <span className="font-semibold text-[#1E293B]">
-                    ${appointmentFee}
+                    ${consultationFee}
                   </span>
                 </div>
                 <div className="flex justify-between text-[#64748B]">
@@ -180,7 +175,7 @@ async function PaymentPage({ params }) {
                   Total Amount
                 </span>
                 <span className="text-2xl font-black text-[#1E293B]">
-                  ${appointmentFee}
+                  ${consultationFee}
                 </span>
               </div>
 

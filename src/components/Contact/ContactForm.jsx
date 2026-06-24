@@ -47,7 +47,7 @@ export default function ContactForm() {
       // });
       // if (!res.ok) throw new Error("Failed to send message.");
 
-      console.log("Contact form payload:", data);
+      // console.log("Contact form payload:", data);
       await new Promise((r) => setTimeout(r, 1200)); // simulate network
 
       setStatus("success");

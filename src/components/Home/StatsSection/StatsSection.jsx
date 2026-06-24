@@ -131,7 +131,7 @@ export default async function StatsSection() {
   // Server-side data fetch — mock for now, swap for real DB query later.
   const stats = await getStats();
   const cards = buildStatCards(stats);
-  console.log(stats);
+  // console.log(stats);
   return (
     <section
       className="bg-[#F8FAFC] py-16 lg:py-20"
