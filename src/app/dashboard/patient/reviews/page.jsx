@@ -4,6 +4,7 @@ import { getReviewsByPatientId } from "@/services/server/api";
 import { Button } from "@heroui/react";
 import { Plus } from "lucide-react";
 import ReviewListClient from "./ReviewListClient";
+import AddNewReviewBtn from "./AddNewReviewBtn";
 
 // মক ডাটা (আপনার দেওয়া ডাটা স্ট্রাকচার অনুযায়ী যদি API ডাউন থাকে)
 const mockReviews = [
@@ -31,7 +32,7 @@ async function MyReviewsPage() {
       {/* পেজ হেডার এবং অ্যাড নিউ রিভিউ বাটন */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-800/60 pb-6">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-bold bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             My Reviews
           </h1>
           <p className="text-sm text-gray-400 mt-1">
@@ -41,17 +42,11 @@ async function MyReviewsPage() {
         </div>
 
         {/* HeroUI Button (Placeholder for modal) */}
-        <Button
-          color="primary"
-          endContent={<Plus className="size-4" />}
-          className="bg-[#0EA5E9] hover:bg-[#0284c7] text-white font-semibold rounded-xl px-5 h-11 self-start sm:self-auto transition-all shadow-lg shadow-sky-500/10 active:scale-[0.98]"
-        >
-          Add New Review
-        </Button>
+        <AddNewReviewBtn />
       </div>
 
       {/* ক্লায়েন্ট লিস্ট কম্পোনেন্ট যেখানে অ্যানিমেশন ও CRUD বাটন থাকবে */}
-      <ReviewListClient initialReviews={reviews} />
+      <ReviewListClient initialReviews={reviews} user={user} />
     </div>
   );
 }
