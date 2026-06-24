@@ -9,6 +9,12 @@ import { serverFetch } from "../core/serverFetch";
  * fixed backend route's response shape. If serverFetch fails (returns
  * null), we fall back to a safe empty shape so the UI doesn't crash.
  */
+
+// get patients by id
+export const getPatientById = async (id) => {
+  return serverFetch(`/api/patients/${id}`);
+};
+
 export const getLimitedDoctors = async ({
   search = "",
   sort = "",
