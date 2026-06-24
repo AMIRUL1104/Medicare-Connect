@@ -63,3 +63,11 @@ export const getPaymentsByDoctorId = async (doctorId) => {
 export const getPaymentsByPatientId = async (patientId) => {
   return serverFetch(`/api/payment/${patientId}?forPatient=true`);
 };
+
+// reviews related data fetching
+export const getReviewsByPatientId = async (patientId) => {
+  return serverFetch(`/api/reviews/${patientId}?forPatient=true`);
+};
+export const getReviewsByDoctorId = async (doctorId) => {
+  return serverFetch(`/api/reviews/${doctorId}?forDoctor=true`);
+};
