@@ -60,7 +60,7 @@ export default function BookingCard({ doctor, user }) {
     setSubmitStatus("submitting");
 
     const payload = {
-      doctorId: doctor._id,
+      doctorId: doctor.userId,
       patientId: user.id,
       doctorName: doctor.doctorName,
       patientName: user.name,
@@ -71,6 +71,7 @@ export default function BookingCard({ doctor, user }) {
       consultationFee: doctor.consultationFee,
       paymentStatus: "pending",
       appointmentStatus: "pending",
+      createdAt: new Date(),
     };
 
     try {
