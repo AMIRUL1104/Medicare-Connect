@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const doctor = await getDoctorById(id);
+  const doctor = await getDoctorById(id, "id");
   return {
     title: doctor
       ? `Book ${doctor.doctorName} – MediCare Connect`
@@ -27,13 +27,11 @@ export async function generateMetadata({ params }) {
  */
 export default async function DoctorBookingPage({ params }) {
   const { id } = await params;
-  const doctor = await getDoctorById(id);
   const user = await getUserSession();
+  const doctor = await getDoctorById(id, "id");
   console.log(user);
 
-  if (!doctor) {
-    notFound();
-  }
+  console.log("profile", doctor);
 
   return (
     <main className="bg-[#F8FAFC] min-h-screen">

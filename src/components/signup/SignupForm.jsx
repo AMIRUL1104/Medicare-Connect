@@ -111,6 +111,8 @@ export default function SignupForm() {
             phone,
             role: userRole,
           };
+          const res = await AddNewPatient(patientData);
+          console.log(res);
         }
 
         if (userRole === "doctor") {
@@ -129,16 +131,21 @@ export default function SignupForm() {
             hospitalName: hospital, // hospital -> hospitalName
 
             // ডক্টর স্কিমার বাকি প্রয়োজনীয় ফিল্ডগুলো (যদি ফর্মে থাকে, নাহলে ডিফল্ট অ্যারে/ভ্যালু)
-            availableDays: availableDays || ["Saturday", "Monday", "Wednesday"],
-            availableSlots: availableSlots || [
-              "10:00 AM - 01:00 PM",
-              "05:00 PM - 08:00 PM",
+            availableDays: ["Saturday", "Monday", "Wednesday"],
+
+            workingHours: [
+              {
+                start: "15:00",
+                end: "19:00",
+              },
             ],
+            slotDuration: 30,
+
             verificationStatus: "pending", // সাইন-আপের সময় ডিফল্ট 'pending' বা 'verified' দিতে পারেন
           };
 
           const res = await AddNewDoctor(doctorData);
-          // console.log("Doctor db response:", res);
+          console.log("Doctor db response:", res);
         }
 
         // সবকিছু সফল হলে সাকসেস মোডাল দেখান

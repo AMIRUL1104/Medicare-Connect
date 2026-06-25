@@ -69,7 +69,8 @@ export default function BookingCard({ doctor, user }) {
       slot: selectedSlot,
       symptoms: formData.symptoms,
       consultationFee: doctor.consultationFee,
-      status: "pending",
+      paymentStatus: "pending",
+      appointmentStatus: "pending",
     };
 
     try {

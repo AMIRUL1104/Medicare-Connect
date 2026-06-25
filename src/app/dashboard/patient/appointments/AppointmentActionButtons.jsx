@@ -37,7 +37,7 @@ function AppointmentActionButtons({ appointment }) {
 
         const updateStatus = await updateAppointmentStatus({
           id: appointment._id,
-          status: "cancelled",
+          appointmentStatus: "cancelled",
         });
 
         if (updateStatus.modifiedCount === 1) {

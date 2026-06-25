@@ -10,7 +10,7 @@ import { serverFetch } from "../core/serverFetch";
  * null), we fall back to a safe empty shape so the UI doesn't crash.
  */
 
-// get patients by id
+//========================= get patients by id =====================
 export const getPatientById = async (id) => {
   return serverFetch(`/api/patients/${id}`);
 };
@@ -40,16 +40,20 @@ export const getLimitedDoctors = async ({
   return result;
 };
 
-// get doctors by id
-export const getDoctorById = async (id) => {
-  return serverFetch(`/api/doctors/${id}`);
+// ======================get doctors by id =====================
+export const getDoctorById = async (id, query) => {
+  return serverFetch(`/api/doctors/${id}?from=${query}`);
 };
 
+// ====================== get stats =====================
 export const getStats = async () => {
   return serverFetch(`/api/stats`);
 };
 
-// appointments related data fetching
+export const getDoctorStats = async (doctorId) => {
+  return serverFetch(`/api/stats/doctor?id=${doctorId}`);
+};
+//================= appointments related data fetching =====================
 export const getAppointmentByPaymentId = async (id) => {
   return serverFetch(`/api/appointments/${id}?forPayment=true`);
 };
@@ -61,7 +65,7 @@ export const getApointmentsByDoctorId = async (doctorId, date) => {
   return serverFetch(`/api/appointmentslots/${doctorId}?date=${date}`);
 };
 
-// payments related data fetching
+// ====================== payments related data fetching =====================
 export const getPaymentsByDoctorId = async (doctorId) => {
   return serverFetch(`/api/payment/${doctorId}?forDoctor=true`);
 };
@@ -70,7 +74,7 @@ export const getPaymentsByPatientId = async (patientId) => {
   return serverFetch(`/api/payment/${patientId}?forPatient=true`);
 };
 
-// reviews related data fetching
+//===================== reviews related data fetching =====================
 export const getReviewsByPatientId = async (patientId) => {
   return serverFetch(`/api/reviews/${patientId}?forPatient=true`);
 };

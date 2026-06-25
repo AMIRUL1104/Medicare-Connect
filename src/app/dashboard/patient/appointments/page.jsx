@@ -78,14 +78,15 @@ async function MyAppointmentsPage() {
       <td className="px-5 py-4">
         <span
           className={`inline-block px-2.5 py-0.5 text-xs font-medium rounded-full capitalize ${
-            app.status === "confirmed" || app.status === "completed"
+            app.appointmentStatus === "confirmed" ||
+            app.appointmentStatus === "completed"
               ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-              : app.status === "pending"
+              : app.appointmentStatus === "pending"
                 ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
                 : "bg-red-500/10 text-red-400 border border-red-500/20"
           }`}
         >
-          {app.status}
+          {app.appointmentStatus}
         </span>
       </td>
 

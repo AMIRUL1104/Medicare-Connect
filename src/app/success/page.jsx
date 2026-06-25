@@ -27,7 +27,7 @@ export default async function Success({ searchParams }) {
 
     // ৩. ডেটাবেস আপডেট লজিক
     const updatedPayment = await updateAppointmentStatus({
-      status: "confirmed",
+      paymentStatus: "confirmed",
       id: appointmentId,
     });
 
