@@ -1,22 +1,33 @@
 import { serverMutation } from "../core/server";
 
+// ============patient related data fetching =============
 export const AddNewPatient = async (data) => {
   return serverMutation("/api/patients", data);
 };
+
+// ============doctor related data fetching =============
 export const AddNewDoctor = async (data) => {
   return serverMutation("/api/doctors", data);
 };
+
+export const updateDoctorScheduleAction = async (data) => {
+  return serverMutation("/api/doctors/schedule", data, "PATCH");
+};
+
+// ============app related data fetching =============
 export const AddNewAppointment = async (data) => {
   return serverMutation("/api/appointments", data);
 };
+
 export const updateAppointmentStatus = async (data) => {
   return serverMutation("/api/appointments", data, "PATCH");
 };
+
 export const newPayment = async (data) => {
   return serverMutation("/api/payment", data);
 };
 
-// review related data fetching
+// ===============review related data fetching =================
 export const addNewReview = async (data) => {
   return serverMutation("/api/reviews", data);
 };

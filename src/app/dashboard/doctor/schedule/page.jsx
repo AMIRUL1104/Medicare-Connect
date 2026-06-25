@@ -1,35 +1,31 @@
 import React from "react";
 import { getUserSession } from "@/services/core/session";
-import { getAppointmentsByDoctorId } from "@/services/server/api";
+import { getDoctorById } from "@/services/server/api";
 import ScheduleClient from "./ScheduleClient";
 
-// Note: Doctors collection থেকে slots ডাটা আনার এপিআই আপনার প্রজেক্ট স্ট্রাকচার অনুযায়ী কল করে নেবেন।
-// এখানে ডেমো হিসেবে `availableSlots` পাস করা হয়েছে।
-
 async function ManageSchedulePage() {
+  // ১. সেশন থেকে লগইন করা ইউজারের ডাটা গেট করা
   const user = await getUserSession();
-  const allAppointments = await getAppointmentsByDoctorId(user.id);
 
-  // Filter only 'confirmed' appointments as requested
-  const confirmedAppointments =
-    allAppointments?.filter(
-      (app) =>
-        app.appointmentStatus === "pending" ||
-        app.paymentStatus === "confirmed",
-    ) || [];
+  // ২. ডক্টরের কালেকশন থেকে ডক্টরের স্পেসিফিক আইডি (বা userId) দিয়ে ডাটা ফেচ করা
+  // আপনার এপিআই লজিক অনুযায়ী পাস করুন (এখানে user.id কে userId হিসেবে পাস করা হয়েছে)
+  const doctorDetails = await getDoctorById(user.id, "userId");
+  console.log(doctorDetails);
 
-  // Demo availability slots (আপাতত হার্ডকোডেড, ডাটাবেজ থেকে আসলে এখানে পাস করবেন)
-  const availableSlots = [
-    { id: "1", day: "Saturday", time: "6:00 PM" },
-    { id: "2", day: "Monday", time: "7:00 PM" },
-  ];
+  // ৩. যদি ডাটাবেজে পূর্বে কোনো অবজেক্ট না থাকে, তবে ক্র্যাশ এড়াতে ফলব্যাক ডাটা
+  const fallbackDoctorData = {
+    userId: user?.id,
+    availableDays: ["Saturday", "Monday", "Wednesday"],
+    workingHours: [{ start: "10:00", end: "13:00" }],
+    slotDuration: 30,
+  };
+
+  // ডাটাবেজে রেকর্ড থাকলে সেটি যাবে, না থাকলে ডিফল্ট স্ট্রাকচার পাস হবে
+  const doctorData = doctorDetails || fallbackDoctorData;
 
   return (
     <div className="min-h-screen bg-[#0E121F] text-gray-100 p-4 md:p-6">
-      <ScheduleClient
-        initialAppointments={confirmedAppointments}
-        initialSlots={availableSlots}
-      />
+      <ScheduleClient doctorData={doctorData} />
     </div>
   );
 }
