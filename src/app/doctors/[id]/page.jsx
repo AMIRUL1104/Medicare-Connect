@@ -29,9 +29,9 @@ export default async function DoctorBookingPage({ params }) {
   const { id } = await params;
   const user = await getUserSession();
   const doctor = await getDoctorById(id, "id");
-  console.log(user);
+  // console.log(user);
 
-  console.log("profile", doctor);
+  // console.log("profile", doctor, id);
 
   return (
     <main className="bg-[#F8FAFC] min-h-screen">
