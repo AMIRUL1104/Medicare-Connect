@@ -2,6 +2,7 @@ import { getUserSession } from "@/services/core/session";
 import {
   getAppointmentByPatientId,
   getPaymentsByPatientId,
+  getReviewsByPatientId,
 } from "@/services/server/api";
 import React from "react";
 import {
@@ -19,6 +20,9 @@ async function PatientDashboardPage() {
   const user = await getUserSession();
   const { totalPaid, history = [] } = await getPaymentsByPatientId(user?.id);
   const allAppointments = (await getAppointmentByPatientId(user?.id)) || [];
+  const Reviews = await getReviewsByPatientId(user?.id);
+  // console.log(allAppointments);
+  // console.log(totalPaid, history);
 
   // ১. অ্যাপয়েন্টমেন্ট ফিল্টারিং লজিক (Upcoming vs Past)
   const today = new Date();
@@ -26,15 +30,19 @@ async function PatientDashboardPage() {
 
   const upcomingAppointments = allAppointments.filter((app) => {
     const appDate = new Date(app.date);
-    return appDate >= today && app.status !== "cancelled";
+    return (
+      appDate >= today &&
+      app.appointmentStatus !== "cancelled" &&
+      app.appointmentStatus !== "completed"
+    );
   });
 
   const pastAppointments = allAppointments.filter((app) => {
     const appDate = new Date(app.date);
     return (
       appDate < today ||
-      app.status === "completed" ||
-      app.status === "cancelled"
+      app.appointmentStatus === "completed" ||
+      app.appointmentStatus === "cancelled"
     );
   });
 
@@ -42,23 +50,6 @@ async function PatientDashboardPage() {
   const recentPayments = history.slice(0, 5);
 
   // ৩. রিভিউ সেকশনের জন্য মক ডাটা
-  const mockReviews = [
-    {
-      id: "1",
-      doctorName: "Dr. Ariful Islam",
-      rating: 5,
-      comment:
-        "Excellent consulting! The doctor explained the symptoms and treatment clearly.",
-      date: "2026-06-20",
-    },
-    {
-      id: "2",
-      doctorName: "Dr. Nusrat Jahan",
-      rating: 4,
-      comment: "Very professional environment and the appointment was on time.",
-      date: "2026-06-15",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-[#0A0E1A] text-gray-100 p-6 space-y-8">
@@ -149,9 +140,7 @@ async function PatientDashboardPage() {
               <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">
                 My Total Reviews
               </p>
-              <h3 className="text-2xl font-bold mt-0.5">
-                {mockReviews.length}
-              </h3>
+              <h3 className="text-2xl font-bold mt-0.5">{Reviews.length}</h3>
             </div>
           </Card.Content>
         </Card>
@@ -257,7 +246,7 @@ async function PatientDashboardPage() {
                       {app.date} | {app.slot}
                     </p>
                     <span className="inline-block px-2 py-0.5 bg-blue-500/10 text-blue-400 text-[10px] font-medium rounded-md mt-2 capitalize">
-                      {app.status}
+                      {app.appointmentStatus}
                     </span>
                   </div>
                 </div>
@@ -292,7 +281,7 @@ async function PatientDashboardPage() {
                   <th className="px-4 py-3 rounded-l-xl">Doctor Name</th>
                   <th className="px-4 py-3">Date & Slot</th>
                   <th className="px-4 py-3">Fee</th>
-                  <th className="px-4 py-3 rounded-r-xl">Status</th>
+                  <th className="px-4 py-3 rounded-r-xl">appointmentStatus</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-800/50">
@@ -315,13 +304,13 @@ async function PatientDashboardPage() {
                       <td className="px-4 py-3.5">
                         <span
                           className={`px-2 py-0.5 text-[11px] font-medium rounded-md capitalize ${
-                            app.status === "completed" ||
-                            app.status === "confirmed"
+                            app.appointmentStatus === "completed" ||
+                            app.appointmentStatus === "confirmed"
                               ? "bg-emerald-500/10 text-emerald-400"
                               : "bg-red-500/10 text-red-400"
                           }`}
                         >
-                          {app.status}
+                          {app.appointmentStatus}
                         </span>
                       </td>
                     </tr>
@@ -351,9 +340,9 @@ async function PatientDashboardPage() {
           </p>
 
           <div className="space-y-3 overflow-y-auto max-h-70 pr-1">
-            {mockReviews.map((rev) => (
+            {Reviews.map((rev) => (
               <div
-                key={rev.id}
+                key={rev._id}
                 className="p-3.5 bg-[#161D30] rounded-xl border border-gray-800/60"
               >
                 <div className="flex justify-between items-center mb-1.5">
@@ -367,10 +356,19 @@ async function PatientDashboardPage() {
                   </div>
                 </div>
                 <p className="text-xs text-gray-400 leading-relaxed italic">
-                  {rev.comment}
+                  {rev.testimonial}
                 </p>
                 <div className="text-[10px] text-gray-500 mt-2 text-right">
-                  {rev.date}
+                  {rev.createdAt
+                    ? new Date(rev.createdAt).toLocaleString("en-US", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      })
+                    : "N/A"}
                 </div>
               </div>
             ))}

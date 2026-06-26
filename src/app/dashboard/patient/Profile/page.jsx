@@ -5,9 +5,12 @@ import ProfileClientView from "./ProfileClientView";
 
 async function ProfilePage() {
   const user = await getUserSession();
+  // console.log(user);
 
   // ব্যাকএন্ড থেকে ডাটা ফেচিং
   let userDetails = await getPatientById(user.id);
+  // console.log(userDetails);
+
   // try {
   //   userDetails = await getPatientById(user?.id);
   // } catch (error) {
