@@ -38,6 +38,11 @@ export function DashboardSidebar({ user }) {
       href: "/dashboard/patient/appointments",
     },
     {
+      icon: FileText,
+      label: "Prescriptions",
+      href: "/dashboard/patient/prescriptions",
+    },
+    {
       icon: CreditCard,
       label: "Payment History",
       href: "/dashboard/patient/payments",

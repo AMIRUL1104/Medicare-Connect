@@ -12,8 +12,8 @@ async function PaymentPage({ params }) {
   // ডেটা ফেচিং
   const appointment = await getAppointmentByPaymentId(paymentId);
   const doctor = await getDoctorById(id, "id");
-  console.log(id);
-  console.log(doctor);
+  // console.log(id);
+  // console.log(doctor);
 
   const { doctorName, consultationFee, date, slot, patientName } = appointment;
   // ডক্টরের এক্সট্রা ইনফো (যেমন স্পেশালাইজেশন বা ইমেজ) যদি অবজেক্টে থাকে, তা ডিস্ট্রাকচার করে নিতে পারেন

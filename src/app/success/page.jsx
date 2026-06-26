@@ -153,7 +153,7 @@ export default async function Success({ searchParams }) {
             {/* Call to Actions */}
             <div className="mt-8 space-y-3">
               <Link
-                href="/dashboard"
+                href="/dashboard/patient"
                 className="w-full py-3 px-6 rounded-[12px] font-semibold text-white text-[15px] flex items-center justify-center gap-2 transition-all duration-200 shadow-[0_4px_16px_rgba(14,165,233,0.2)] hover:shadow-[0_6px_20px_rgba(14,165,233,0.3)] hover:-translate-y-px active:translate-y-0"
                 style={{
                   background: "linear-gradient(135deg, #0EA5E9, #0284C7)",
