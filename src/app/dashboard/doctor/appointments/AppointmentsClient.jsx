@@ -1,10 +1,9 @@
-
-
 "use client";
 
 import React, { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { updateAppointmentStatus } from "@/services/server/action"; // আপনার তৈরি সার্ভার অ্যাকশন
+import { createPrescription } from "@/services/server/action";
 import { toast } from "react-toastify";
 import {
   Check,
@@ -45,9 +44,14 @@ export default function AppointmentsClient({ initialAppointments }) {
 
           // 'completed' হলে প্রেসক্রিপশন রাউটে নিয়ে যাবে
           if (newStatus === "completed") {
-            router.push(
-              `/dashboard/doctor/prescription?appointmentId=${appointmentId}`,
-            );
+            const res = await createPrescription(appointmentId);
+            console.log(res);
+            if (res.insertedId) {
+              // সাথে সাথে নতুন প্রেসক্রিপশনের এডিট রুটে পুশ করবে
+              router.push(
+                `/dashboard/doctor/prescriptions/edit/${res.insertedId}`,
+              );
+            }
           } else {
             router.refresh();
           }

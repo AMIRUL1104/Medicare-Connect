@@ -54,6 +54,9 @@ export const getDoctorStats = async (doctorId) => {
   return serverFetch(`/api/stats/doctor?id=${doctorId}`);
 };
 //================= appointments related data fetching =====================
+export const getAppointmentByAppointmentId = async (id) => {
+  return serverFetch(`/api/appointments/${id}?forAppointment=true`);
+};
 export const getAppointmentByPaymentId = async (id) => {
   return serverFetch(`/api/appointments/${id}?forPayment=true`);
 };
@@ -90,4 +93,18 @@ export const searchDoctorsFromServer = async (searchQuery) => {
   const result = await serverFetch(`/api/doctors/search?search=${searchQuery}`);
 
   return result;
+};
+
+// ===================== prescriptions related data fetching =====================
+
+// ডক্টর এডিট পেজে যাওয়ার পর এগুলো আপডেট করবেন, শুরুতে ডিফল্ট স্টেট:
+export const getPrescriptionsByDoctorId = async (doctorId) => {
+  return serverFetch(`/api/prescriptions/${doctorId}?forDoctor=true`);
+};
+export const getPrescriptionsByPatientId = async (patientId) => {
+  return serverFetch(`/api/prescriptions/${patientId}?forPatient=true`);
+};
+
+export const getPrescriptionById = async (id) => {
+  return serverFetch(`/api/prescriptions/${id}`);
 };
