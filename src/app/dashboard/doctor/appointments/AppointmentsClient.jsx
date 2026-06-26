@@ -1,248 +1,216 @@
+
+
 "use client";
 
 import React, { useState, useTransition } from "react";
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { updateAppointmentStatus } from "@/services/server/action"; // আপনার তৈরি সার্ভার অ্যাকশন
+import { toast } from "react-toastify";
 import {
-  Calendar,
   Check,
   X,
-  History,
-  User,
-  FileText,
+  ClipboardCheck,
+  Calendar,
   Clock,
-  Mail,
+  User,
+  AlertCircle,
 } from "lucide-react";
-import { updateAppointmentStatus } from "@/services/server/action";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 
-export default function AppointmentsClient({
-  pendingAppointments,
-  pastAppointments,
-}) {
-  const [pendingList, setPendingList] = useState(pendingAppointments);
+export default function AppointmentsClient({ initialAppointments }) {
+  const router = useRouter();
+  const [appointments, setAppointments] = useState(initialAppointments);
   const [isPending, startTransition] = useTransition();
 
-  const router = useRouter();
-
-  // Approve / Reject হ্যান্ডলার
+  // স্ট্যাটাস আপডেট হ্যান্ডলার
   const handleStatusChange = async (appointmentId, newStatus) => {
     startTransition(async () => {
       try {
+        // ব্যাকএন্ড অ্যাকশনে আইডি এবং নতুন স্ট্যাটাস পাঠানো
         const res = await updateAppointmentStatus({
           id: appointmentId,
-          appointmentStatus: newStatus, // "approved" or "rejected"
+          appointmentStatus: newStatus, // যেমন: 'accepted', 'rejected', 'completed'
         });
-        if (res.modifiedCount === 1) {
-          toast.success("Appointment Approved");
 
-          setPendingList((prev) =>
-            prev.filter((app) => app._id !== appointmentId),
+        if (res?.modifiedCount === 1) {
+          // লোকাল স্টেট আপডেট (appointmentStatus কী-তে সেট হবে)
+          setAppointments((prev) =>
+            prev.map((app) =>
+              app._id === appointmentId
+                ? { ...app, appointmentStatus: newStatus }
+                : app,
+            ),
           );
-          router.refresh();
+
+          toast.success(`Appointment marked as ${newStatus}!`);
+
+          // 'completed' হলে প্রেসক্রিপশন রাউটে নিয়ে যাবে
+          if (newStatus === "completed") {
+            router.push(
+              `/dashboard/doctor/prescription?appointmentId=${appointmentId}`,
+            );
+          } else {
+            router.refresh();
+          }
+        } else {
+          toast.error(res?.error || "Failed to update status.");
         }
       } catch (error) {
-        console.error("Status update failed:", error);
-        // প্রপার এরর হ্যান্ডলিং বা স্টেট রিভার্ট লজিক এখানে দিতে পারেন
+        console.error(error);
+        toast.error("Something went wrong. Please try again.");
       }
     });
   };
 
+  // স্ট্যাটাস কালার নির্ধারণের ফাংশন (আপনার ডাটাবেজের lowercase ভ্যালু অনুযায়ী)
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case "accepted":
+        return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 capitalize";
+      case "rejected":
+        return "bg-rose-500/10 text-rose-400 border-rose-500/20 capitalize";
+      case "completed":
+        return "bg-purple-500/10 text-purple-400 border-purple-500/20 capitalize";
+      default:
+        return "bg-amber-500/10 text-amber-400 border-amber-500/20 capitalize";
+    }
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="max-w-7xl mx-auto space-y-10"
-    >
-      {/* Header */}
-      <div className="border-b border-gray-800 pb-5">
-        <h1 className="text-2xl font-bold text-white tracking-wide">
-          Appointments
-        </h1>
-        <p className="text-sm text-gray-400 mt-1">
-          Review and manage patient requests or check past consultation history.
-        </p>
-      </div>
-
-      {/* Section 1: Pending Appointments Table */}
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-yellow-500 flex items-center gap-2">
-          <Clock className="w-5 h-5" /> Pending Requests ({pendingList.length})
-        </h2>
-
-        {/* Desktop View */}
-        <div className="bg-[#161D30] rounded-2xl border border-gray-800/60 overflow-hidden hidden md:block">
-          <table className="w-full border-collapse text-left">
+    <div className="bg-[#161D30] border border-gray-800 rounded-2xl overflow-hidden shadow-xl">
+      {appointments.length === 0 ? (
+        <div className="p-12 text-center space-y-3">
+          <AlertCircle className="size-10 text-gray-500 mx-auto" />
+          <p className="text-gray-400 font-medium">No appointments found.</p>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-gray-800 text-xs font-semibold text-gray-400 uppercase bg-[#121826]">
-                <th className="p-4">Patient Details</th>
-                <th className="p-4">Schedule</th>
-                <th className="p-4">Symptoms</th>
-                <th className="p-4 text-center">Action</th>
+              <tr className="border-b border-gray-800 bg-[#0E121F]/50 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-4">Patient Info</th>
+                <th className="px-6 py-4">Schedule</th>
+                <th className="px-6 py-4">Symptoms</th>
+                <th className="px-6 py-4">Payment</th>
+                <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800/60 text-sm">
-              {pendingList.map((app) => (
+              {appointments.map((app) => (
                 <tr
                   key={app._id}
-                  className="hover:bg-[#121826]/30 transition-colors"
+                  className="hover:bg-[#0E121F]/20 transition-colors"
                 >
-                  <td className="p-4">
-                    <div className="font-medium text-white">
-                      {app.patientName}
-                    </div>
-                    <div className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
-                      <Mail className="w-3 h-3" /> {app.patientEmail}
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <div className="text-white text-xs font-medium">
-                      {app.date}
-                    </div>
-                    <div className="text-[11px] text-[#0EA5E9] mt-0.5">
-                      {app.slot}
-                    </div>
-                  </td>
-                  <td
-                    className="p-4 text-gray-400 max-w-[220px] truncate"
-                    title={app.symptoms}
-                  >
-                    {app.symptoms}
-                  </td>
-                  <td className="p-4">
-                    <div className="flex items-center justify-center gap-2 bg-[#0E121F] p-1 rounded-xl border border-gray-800 max-w-[140px] mx-auto">
-                      <button
-                        onClick={() => handleStatusChange(app._id, "approved")}
-                        disabled={isPending}
-                        className="flex-1 py-1.5 px-2 rounded-lg text-emerald-500 hover:bg-emerald-500/10 transition-colors flex justify-center"
-                        title="Approve"
-                      >
-                        <Check className="w-4 h-4" />
-                      </button>
-                      <div className="w-[1px] h-4 bg-gray-800" />
-                      <button
-                        onClick={() => handleStatusChange(app._id, "rejected")}
-                        disabled={isPending}
-                        className="flex-1 py-1.5 px-2 rounded-lg text-rose-500 hover:bg-rose-500/10 transition-colors flex justify-center"
-                        title="Reject"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
+                  {/* রোগীর তথ্য */}
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="size-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                        <User className="size-4" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-200">
+                          {app.patientName}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          ID: {app.patientId}
+                        </p>
+                      </div>
                     </div>
                   </td>
-                </tr>
-              ))}
-              {pendingList.length === 0 && (
-                <tr>
-                  <td
-                    colSpan="4"
-                    className="text-center py-10 text-gray-500 text-sm"
-                  >
-                    No pending appointment requests at the moment.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
 
-        {/* Mobile View */}
-        <div className="md:hidden space-y-3">
-          {pendingList.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-6 bg-[#161D30] rounded-2xl border border-gray-800/60">
-              No pending requests.
-            </p>
-          ) : (
-            pendingList.map((app) => (
-              <div
-                key={app._id}
-                className="bg-[#161D30] p-4 rounded-2xl border border-gray-800/60 space-y-3"
-              >
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-white text-sm">
-                    {app.patientName}
-                  </span>
-                  <span className="text-xs text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded-full">
-                    Pending
-                  </span>
-                </div>
-                <div className="text-xs text-gray-400 space-y-0.5">
-                  <p>
-                    Date: {app.date} ({app.slot})
-                  </p>
-                  <p className="truncate">Symptoms: {app.symptoms}</p>
-                </div>
-                <div className="flex gap-2 pt-2 border-t border-gray-800/60">
-                  <button
-                    onClick={() => handleStatusChange(app._id, "approved")}
-                    className="flex-1 py-2 bg-emerald-600/20 text-emerald-400 rounded-xl text-xs font-medium flex items-center justify-center gap-1"
-                  >
-                    <Check className="w-3.5 h-3.5" /> Approve
-                  </button>
-                  <button
-                    onClick={() => handleStatusChange(app._id, "rejected")}
-                    className="flex-1 py-2 bg-rose-600/20 text-rose-400 rounded-xl text-xs font-medium flex items-center justify-center gap-1"
-                  >
-                    <X className="w-3.5 h-3.5" /> Reject
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+                  {/* অ্যাপয়েন্টমেন্ট ডিটেইলস (date এবং slot) */}
+                  <td className="px-6 py-4 space-y-1">
+                    <div className="flex items-center gap-1.5 text-gray-300">
+                      <Calendar className="size-3.5 text-gray-500" />
+                      <span>{app.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                      <Clock className="size-3.5 text-gray-500" />
+                      <span>{app.slot}</span>
+                    </div>
+                  </td>
 
-      {/* Section 2: Past / Overdue Appointments (Read Only) */}
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-gray-400 flex items-center gap-2">
-          <History className="w-5 h-5" /> History / Past Appointments
-        </h2>
+                  {/* রোগীর লক্ষণ (symptoms) */}
+                  <td className="px-6 py-4 max-w-xs">
+                    <p className="text-gray-300 line-clamp-2 bg-[#0E121F]/40 px-3 py-1.5 rounded-lg border border-gray-800/60 text-xs">
+                      {app.symptoms || "No symptoms described."}
+                    </p>
+                  </td>
 
-        <div className="bg-[#161D30]/60 rounded-2xl border border-gray-800/40 overflow-hidden">
-          <table className="w-full border-collapse text-left text-sm">
-            <thead>
-              <tr className="border-b border-gray-800/60 text-xs font-semibold text-gray-500 uppercase bg-[#121826]/40">
-                <th className="p-4">Patient</th>
-                <th className="p-4">Date & Slot</th>
-                <th className="p-4">Symptoms</th>
-                <th className="p-4 text-right">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800/40 text-gray-400">
-              {pastAppointments.map((app) => (
-                <tr key={app._id} className="opacity-70">
-                  <td className="p-4 font-medium text-gray-300">
-                    {app.patientName}
-                  </td>
-                  <td className="p-4 text-xs">
-                    <div>{app.date}</div>
-                    <div className="text-gray-500 mt-0.5">{app.slot}</div>
-                  </td>
-                  <td
-                    className="p-4 max-w-[250px] truncate"
-                    title={app.symptoms}
-                  >
-                    {app.symptoms}
-                  </td>
-                  <td className="p-4 text-right">
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-gray-800 text-gray-500 border border-gray-700/40">
-                      Overdue
+                  {/* পেমেন্ট স্ট্যাটাস (paymentStatus) */}
+                  <td className="px-6 py-4">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 capitalize">
+                      {app.paymentStatus || "Pending"}
                     </span>
                   </td>
-                </tr>
-              ))}
-              {pastAppointments.length === 0 && (
-                <tr>
-                  <td colSpan="4" className="text-center py-10 text-gray-600">
-                    No past records found.
+
+                  {/* বর্তমান স্ট্যাটাস (appointmentStatus) */}
+                  <td className="px-6 py-4">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${getStatusBadge(app.appointmentStatus)}`}
+                    >
+                      {app.appointmentStatus || "pending"}
+                    </span>
+                  </td>
+
+                  {/* অ্যাকশন বাটন সমূহ */}
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      {/* pending থাকলে Accept এবং Reject বাটন চালু থাকবে */}
+                      {app.appointmentStatus === "pending" && (
+                        <>
+                          <button
+                            disabled={isPending}
+                            onClick={() =>
+                              handleStatusChange(app._id, "accepted")
+                            }
+                            className="p-2 bg-emerald-500/10 hover:bg-emerald-500 border border-emerald-500/20 hover:border-emerald-500 text-emerald-400 hover:text-white rounded-lg transition-all"
+                            title="Accept Appointment"
+                          >
+                            <Check className="size-4" />
+                          </button>
+                          <button
+                            disabled={isPending}
+                            onClick={() =>
+                              handleStatusChange(app._id, "rejected")
+                            }
+                            className="p-2 bg-rose-500/10 hover:bg-rose-500 border border-rose-500/20 hover:border-rose-500 text-rose-400 hover:text-white rounded-lg transition-all"
+                            title="Reject Appointment"
+                          >
+                            <X className="size-4" />
+                          </button>
+                        </>
+                      )}
+
+                      {/* accepted থাকলে Mark Completed বাটন দেখাবে */}
+                      {app.appointmentStatus === "accepted" && (
+                        <button
+                          disabled={isPending}
+                          onClick={() =>
+                            handleStatusChange(app._id, "completed")
+                          }
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-500/10 hover:bg-purple-500 border border-purple-500/20 hover:border-purple-500 text-purple-400 hover:text-white text-xs font-medium rounded-lg transition-all shadow-sm"
+                        >
+                          <ClipboardCheck className="size-4" />
+                          <span>Mark Completed</span>
+                        </button>
+                      )}
+
+                      {/* completed অথবা rejected হলে কোনো অ্যাকশন থাকবে না */}
+                      {(app.appointmentStatus === "completed" ||
+                        app.appointmentStatus === "rejected") && (
+                        <span className="text-xs text-gray-500 italic">
+                          No actions needed
+                        </span>
+                      )}
+                    </div>
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
-      </div>
-    </motion.div>
+      )}
+    </div>
   );
 }
