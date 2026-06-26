@@ -1,6 +1,6 @@
 import BookingCard from "@/components/Booking/BookingCard";
 import DoctorInfoSection from "@/components/Doctor-Details/DoctorInfoSection";
-import ReviewsSection from "@/components/Doctor-Details/ReviewsSection";
+
 import { getUserSession } from "@/services/core/session";
 import { getDoctorById } from "@/services/server/api";
 import { notFound } from "next/navigation";
@@ -41,7 +41,7 @@ export default async function DoctorBookingPage({ params }) {
           <div>
             <DoctorInfoSection doctor={doctor} />
             {/* Reviews below doctor info on both desktop and mobile per the left column */}
-            <ReviewsSection doctorId={doctor._id} />
+            {/* <ReviewsSection doctorDetails={doctor} /> */}
           </div>
 
           {/* Right / below: Sticky booking card (35% desktop) */}

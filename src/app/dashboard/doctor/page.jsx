@@ -14,21 +14,21 @@ import { getDoctorById, getDoctorStats } from "@/services/server/api";
 import { getUserSession } from "@/services/core/session";
 
 // 💡 আপাতত আপনার রিকোয়ারমেন্ট অনুযায়ী মক ডাটা ব্যবহার করা হয়েছে
-const mockDoctorData = {
-  profile: {
-    name: "Dr. Chris Donovan",
-    specialization: "Psychiatrist",
-    isVerified: true, // true = Verified, false = Pending
-    isAvailable: true,
-  },
-  stats: {
-    totalAppointments: 148,
-    pendingRequests: 12,
-    totalEarnings: 8400,
-    patientCount: 94,
-    averageRating: 4.9,
-  },
-};
+// const mockDoctorData = {
+//   profile: {
+//     name: "Dr. Chris Donovan",
+//     specialization: "Psychiatrist",
+//     isVerified: true, // true = Verified, false = Pending
+//     isAvailable: true,
+//   },
+//   stats: {
+//     totalAppointments: 148,
+//     pendingRequests: 12,
+//     totalEarnings: 8400,
+//     patientCount: 94,
+//     averageRating: 4.9,
+//   },
+// };
 
 async function DoctorDashboardOverview() {
   const user = await getUserSession();
@@ -111,7 +111,7 @@ async function DoctorDashboardOverview() {
         <div className="bg-[#161D30] border border-gray-800/60 rounded-xl p-5 shadow-xs flex flex-col justify-between group hover:border-gray-700/60 transition-all">
           <div className="flex justify-between items-start">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-              Total Bookings
+              Total Appointments
             </span>
             <div className="p-2 bg-sky-500/10 text-[#0EA5E9] rounded-lg border border-sky-500/10">
               <CalendarCheck2 className="size-4" />

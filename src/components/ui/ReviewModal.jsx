@@ -70,10 +70,10 @@ export default function ReviewModal({
       setShowDropdown(true);
       try {
         // 💡 আপনার নিজস্ব এপিআই এর মাধ্যমে ব্যাকএন্ড থেকে ডক্টর লিস্ট আনুন
-        console.log("searchQuery", searchQuery);
+        // console.log("searchQuery", searchQuery);
         const res = await searchDoctorsFromServer(searchQuery);
         setSearchResults(res || []);
-        console.log("res", res);
+        // console.log("res", res);
       } catch (err) {
         console.error(err);
       } finally {

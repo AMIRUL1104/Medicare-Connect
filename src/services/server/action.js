@@ -14,6 +14,10 @@ export const updateDoctorScheduleAction = async (data) => {
   return serverMutation("/api/doctors/schedule", data, "PATCH");
 };
 
+export const updateDoctorProfile = async (data) => {
+  return serverMutation("/api/doctors/profile", data, "PATCH");
+};
+
 // ============app related data fetching =============
 export const AddNewAppointment = async (data) => {
   return serverMutation("/api/appointments", data);
