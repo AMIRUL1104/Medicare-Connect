@@ -2,6 +2,7 @@
 import React from "react";
 import { getPaymentHistory } from "@/services/server/api"; // আপনার API পাথ অনুযায়ী পরিবর্তন করুন
 import PaymentHistoryClientTheme from "./PaymentHistoryClientTheme";
+import PaymentAnalytics from "../analytics/PaymentAnalytics";
 
 export default async function AdminPaymentsPage() {
   const allPayments = await getPaymentHistory();
@@ -18,6 +19,7 @@ export default async function AdminPaymentsPage() {
         </p>
       </div>
 
+      <PaymentAnalytics payments={allPayments} />
       {/* ক্লায়েন্ট কম্পোনেন্ট */}
       <PaymentHistoryClientTheme initialPayments={allPayments} />
     </div>

@@ -49,14 +49,14 @@ async function AdminDashboardOverviewPage() {
     {
       id: 4,
       title: "Total Earnings",
-      value: totalEarnings,
+      value: `৳ ${totalEarnings}`,
       icon: DollarSign,
       iconColor: "text-amber-400",
       bgColor: "bg-amber-500/10",
       borderColor: "border-amber-500/20",
     },
   ];
- 
+
   return (
     <div className="min-h-screen bg-[#0E121F] text-gray-100 p-4 md:p-6 space-y-8">
       {/* ─── 🏛️ HEADER SECTION ─── */}

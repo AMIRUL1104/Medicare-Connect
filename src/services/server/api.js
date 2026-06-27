@@ -134,3 +134,7 @@ export const getUserById = async (id) => {
 export const getPaymentHistory = async () => {
   return serverFetch(`/api/payment`);
 };
+
+export const getTopRatedDocors = async () => {
+  return serverFetch(`/api/reviews/chartdata`);
+};
