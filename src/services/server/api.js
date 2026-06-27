@@ -130,3 +130,7 @@ export const getAllAppointment = async () => {
 export const getUserById = async (id) => {
   return serverFetch(`/api/users/${id}`);
 };
+
+export const getPaymentHistory = async () => {
+  return serverFetch(`/api/payment`);
+};
