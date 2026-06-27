@@ -119,6 +119,14 @@ export const getAllUsers = async () => {
   return serverFetch(`/api/users`);
 };
 
+export const getAllDoctors = async () => {
+  return serverFetch(`/api/doctors?allDoctors=true`);
+};
+
+export const getAllAppointment = async () => {
+  return serverFetch(`/api/appointments`);
+};
+
 export const getUserById = async (id) => {
   return serverFetch(`/api/users/${id}`);
 };
