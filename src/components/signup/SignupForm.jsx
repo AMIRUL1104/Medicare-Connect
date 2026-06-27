@@ -88,6 +88,9 @@ export default function SignupForm() {
         password,
         image: photoUrl,
         role,
+        additionalFields: {
+          isSuspended: false, // ডিফল্ট ভ্যালু
+        },
       });
 
       // ২. কোনো এরর আসলে এখানেই আটকে দিন

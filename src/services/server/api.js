@@ -108,3 +108,17 @@ export const getPrescriptionsByPatientId = async (patientId) => {
 export const getPrescriptionById = async (id) => {
   return serverFetch(`/api/prescriptions/${id}`);
 };
+
+// ===================== admin related data fetching =====================
+
+export const getAdminStats = async () => {
+  return serverFetch(`/api/stats/admin`);
+};
+
+export const getAllUsers = async () => {
+  return serverFetch(`/api/users`);
+};
+
+export const getUserById = async (id) => {
+  return serverFetch(`/api/users/${id}`);
+};

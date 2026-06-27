@@ -34,11 +34,14 @@ export default function SuccessModal({ show, role }) {
             : "Welcome to MediCare Connect. Your healthcare journey starts now."}
         </p>
         <button
-          onClick={() => router.push("/")}
+          onClick={() => {
+            router.push("/");
+            router.refresh();
+          }}
           className="w-full py-3 px-6 rounded-[10px] font-semibold text-white text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(14,165,233,0.35)]"
           style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
         >
-          Go to Dashboard →
+          Go to Home →
         </button>
       </div>
     </div>

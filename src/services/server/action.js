@@ -94,3 +94,12 @@ export const createPrescription = async (appointmentId) => {
 export const updatePrescriptionData = async (data) => {
   return serverMutation("/api/prescriptions", data, "PATCH");
 };
+
+export const deleteUser = async (id) => {
+  const response = await fetch(`${baseUrl}/api/users/${id}`, {
+    method: "DELETE",
+  });
+  const result = await response.json();
+
+  return result;
+};
