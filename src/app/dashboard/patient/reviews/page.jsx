@@ -21,6 +21,11 @@ const mockReviews = [
     doctorId: "6a34448ebbd6946906b743df",
   },
 ];
+export const metadata = {
+  title: "My Reviews | MediCare Connect",
+  description:
+    "Check and manage the reviews and feedback you have given to your doctors.",
+};
 
 async function MyReviewsPage() {
   const user = await getUserSession();

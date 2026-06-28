@@ -1,5 +1,9 @@
 import Link from "next/link";
-
+export const metadata = {
+  title: "Access Denied | MediCare Connect",
+  description:
+    "Security Warning: You do not have the required permissions to access this restricted dashboard or resource.",
+};
 export default function Unauthorized() {
   return (
     <main className="min-h-[calc(100vh-4rem)] w-full bg-[#0E121F] flex items-center justify-center p-4 relative overflow-hidden">

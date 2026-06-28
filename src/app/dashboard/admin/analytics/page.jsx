@@ -9,7 +9,11 @@ import {
 import PaymentAnalytics from "./PaymentAnalytics";
 import TopDoctorsChart from "./TopDoctorsChart";
 
-// import DoctorAnalytics from "@/components/Admin/DoctorAnalytics"; // উদাহরণ স্বরূপ ফিউচার কম্পোনেন্ট
+export const metadata = {
+  title: "System Performance Analytics | MediCare Connect",
+  description:
+    "Deep data visualization, user growth matrices, and critical platform performance graphs.",
+};
 
 export default async function AnalyticsPage() {
   // ১. প্যারালালি সব প্রয়োজনীয় অ্যানালিটিক্স ডেটা সার্ভার থেকে ফেচ করা

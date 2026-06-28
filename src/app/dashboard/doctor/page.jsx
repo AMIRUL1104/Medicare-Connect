@@ -21,6 +21,12 @@ import { getUserSession } from "@/services/core/session";
 import ReviewCard from "@/components/Home/reviews/ReviewCard";
 import Image from "next/image";
 
+export const metadata = {
+  title: "Doctor Dashboard | MediCare Connect",
+  description:
+    "Comprehensive overview of your daily medical practices, appointment analytics, and patient inflow.",
+};
+
 async function DoctorDashboardOverview() {
   const user = await getUserSession();
 

@@ -3,6 +3,12 @@ import { getUserSession } from "@/services/core/session";
 import { getDoctorById } from "@/services/server/api";
 import DoctorProfileClient from "./DoctorProfileClient";
 
+export const metadata = {
+  title: "Doctor Profile | MediCare Connect",
+  description:
+    "Update your medical degrees, specializations, biography, and professional clinic details.",
+};
+
 async function DoctorProfilePage() {
   const user = await getUserSession();
 

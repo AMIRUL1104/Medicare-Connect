@@ -3,6 +3,12 @@ import { getUserSession } from "@/services/core/session";
 import { getAppointmentsByDoctorId } from "@/services/server/api"; // আপনার তৈরি ফেচিং API
 import AppointmentsClient from "./AppointmentsClient";
 
+export const metadata = {
+  title: "Patient Appointments | MediCare Connect",
+  description:
+    "Track upcoming consultations, approve patient bookings, and manage check-in pipelines.",
+};
+
 async function DoctorAppointmentsPage() {
   const user = await getUserSession();
 

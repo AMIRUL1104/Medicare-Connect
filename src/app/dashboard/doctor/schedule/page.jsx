@@ -3,6 +3,12 @@ import { getUserSession } from "@/services/core/session";
 import { getDoctorById } from "@/services/server/api";
 import ScheduleClient from "./ScheduleClient";
 
+export const metadata = {
+  title: "Manage Schedule | MediCare Connect",
+  description:
+    "Set your weekly availability, configure time slots, and optimize consultation hours.",
+};
+
 async function ManageSchedulePage() {
   // ১. সেশন থেকে লগইন করা ইউজারের ডাটা গেট করা
   const user = await getUserSession();

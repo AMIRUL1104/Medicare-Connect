@@ -3,6 +3,12 @@ import React from "react";
 import { getAllDoctors } from "@/services/server/api";
 import DoctorManagementTable from "./DoctorManagementTable";
 
+export const metadata = {
+  title: "Doctor Verification & Management | MediCare Connect",
+  description:
+    "Approve medical credentials, onboard new practitioners, and monitor doctor profiles.",
+};
+
 export default async function DoctorsManagePage() {
   const allDoctors = await getAllDoctors();
 

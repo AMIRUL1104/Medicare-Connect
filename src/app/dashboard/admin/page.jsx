@@ -9,6 +9,12 @@ import {
 import { getAdminStats } from "@/services/server/api";
 import { getUserSession } from "@/services/core/session";
 
+export const metadata = {
+  title: "Admin Control Center | MediCare Connect",
+  description:
+    "Global system overview, quick operational metrics, and server health monitoring.",
+};
+
 async function AdminDashboardOverviewPage() {
   const user = await getUserSession();
   const stats = await getAdminStats();

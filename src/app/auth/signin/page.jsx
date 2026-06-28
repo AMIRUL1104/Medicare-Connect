@@ -14,6 +14,12 @@ import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { GoogleSigninButton } from "@/components/ui/GoogleSigninButton";
 
+export const metadata = {
+  title: "Sign In | MediCare Connect",
+  description:
+    "Log in to your secure MediCare Connect account to manage your medical dashboard, appointments, and prescriptions.",
+};
+
 export default function LoginForm() {
   const router = useRouter();
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);

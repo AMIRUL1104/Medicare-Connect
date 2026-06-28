@@ -5,6 +5,12 @@ import Link from "next/link";
 import { FileText, LayoutGrid, List } from "lucide-react";
 import PrescriptionContainer from "./PrescriptionContainer";
 
+export const metadata = {
+  title: "Prescriptions | MediCare Connect",
+  description:
+    "Access and download your digital prescriptions provided by certified doctors.",
+};
+
 async function PrescriptionPage({ searchParams }) {
   const user = await getUserSession();
   const prescriptions = await getPrescriptionsByPatientId(user.id);

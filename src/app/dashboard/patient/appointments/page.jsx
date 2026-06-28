@@ -5,6 +5,12 @@ import React from "react";
 import { Calendar, Clock, Activity, DollarSign } from "lucide-react";
 import AppointmentActionButtons from "./AppointmentActionButtons";
 
+export const metadata = {
+  title: "My Appointments | MediCare Connect",
+  description:
+    "View and manage your scheduled doctor appointments and consultation history.",
+};
+
 async function MyAppointmentsPage() {
   const user = await getUserSession();
 

@@ -165,6 +165,12 @@ import { getUserSession } from "@/services/core/session";
 import SearchPrescription from "./SearchPrescription";
 import { getPrescriptionsByDoctorId } from "@/services/server/api";
 
+export const metadata = {
+  title: "Create & Manage Prescriptions | MediCare Connect",
+  description:
+    "Issue digital prescriptions, add medical guidelines, and view previous patient health histories.",
+};
+
 // 💡 এটি একটি Server Component
 async function PrescriptionListPage({ searchParams }) {
   const user = await getUserSession();

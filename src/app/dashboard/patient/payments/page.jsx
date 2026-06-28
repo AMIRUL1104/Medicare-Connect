@@ -10,6 +10,12 @@ import {
   Hash,
 } from "lucide-react";
 
+export const metadata = {
+  title: "Payment History | MediCare Connect",
+  description:
+    "Track and review all your past transaction history and billing invoices securely.",
+};
+
 async function PaymentHistoryPage() {
   const user = await getUserSession();
 

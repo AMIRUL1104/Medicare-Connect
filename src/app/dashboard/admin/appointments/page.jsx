@@ -3,6 +3,12 @@ import React from "react";
 import { getAllAppointment } from "@/services/server/api"; // আপনার API পাথ অনুযায়ী পরিবর্তন করুন
 import AppointmentManagementClient from "./AppointmentManagementClient";
 
+export const metadata = {
+  title: "Global Appointments Registry | MediCare Connect",
+  description:
+    "Monitor, track, and log all healthcare schedules and booking lifecycles in real-time.",
+};
+
 export default async function AdminAppointmentsPage() {
   const allAppointments = await getAllAppointment();
 

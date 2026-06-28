@@ -16,6 +16,12 @@ import {
 } from "lucide-react";
 import { Card, CardBody } from "@heroui/react";
 
+export const metadata = {
+  title: "Patient Dashboard | MediCare Connect",
+  description:
+    "Overview of your health metrics, recent activities, and upcoming medical schedules.",
+};
+
 async function PatientDashboardPage() {
   const user = await getUserSession();
   const { totalPaid, history = [] } = await getPaymentsByPatientId(user?.id);

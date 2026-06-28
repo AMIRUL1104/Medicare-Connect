@@ -4,6 +4,12 @@ import { getPaymentHistory } from "@/services/server/api"; // আপনার AP
 import PaymentHistoryClientTheme from "./PaymentHistoryClientTheme";
 import PaymentAnalytics from "../analytics/PaymentAnalytics";
 
+export const metadata = {
+  title: "Financial Analytics & Transactions | MediCare Connect",
+  description:
+    "Secure ledger tracking for all client platform invoices, revenue charts, and payment logs.",
+};
+
 export default async function AdminPaymentsPage() {
   const allPayments = await getPaymentHistory();
 
