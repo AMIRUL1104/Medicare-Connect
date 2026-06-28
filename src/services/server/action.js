@@ -103,3 +103,7 @@ export const deleteUser = async (id) => {
 
   return result;
 };
+
+export const suspendUser = async (id, data) => {
+  return serverMutation(`/api/users/${id}`, data, "PATCH");
+};
