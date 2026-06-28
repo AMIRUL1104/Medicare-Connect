@@ -45,7 +45,7 @@ export default function Logo({
         />
         <path
           d="M52 22C49 18 43 16 38 16C28.06 16 20 24.06 20 34C20 43.94 28.06 52 38 52C44 52 50 49 52 44"
-          stroke="#1E293B"
+          stroke="#9fa5af"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
