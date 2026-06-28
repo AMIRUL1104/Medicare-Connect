@@ -1,29 +1,29 @@
 export default function LeftPanel() {
   return (
     <div
-      className="lg:w-2/5 flex flex-col justify-between p-8 lg:p-12 relative overflow-hidden"
+      className="lg:w-2/5 flex flex-col justify-between p-8 lg:p-12 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-gray-800"
       style={{
         background:
-          "linear-gradient(160deg, #0EA5E9 0%, #0369A1 50%, #1E293B 100%)",
+          "linear-gradient(160deg, #0B1120 0%, #0F172A 50%, #111827 100%)",
       }}
     >
-      {/* BG decorative blobs */}
+      {/* BG decorative blobs with custom Glow effect */}
       <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(16,185,129,0.3) 0%, transparent 40%)",
+            "radial-gradient(circle at 20% 30%, rgba(56,189,248,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(16,185,129,0.05) 0%, transparent 50%)",
         }}
       />
-      <div className="absolute top-16 right-8 w-32 h-32 rounded-full border border-white/10 opacity-30 pointer-events-none" />
-      <div className="absolute bottom-32 left-6 w-20 h-20 rounded-full border border-white/10 opacity-20 pointer-events-none" />
+      <div className="absolute top-16 right-8 w-32 h-32 rounded-full border border-sky-500/10 opacity-30 pointer-events-none blur-sm" />
+      <div className="absolute bottom-32 left-6 w-20 h-20 rounded-full border border-emerald-500/10 opacity-20 pointer-events-none blur-sm" />
 
       {/* Logo */}
       <div className="relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-white/5 backdrop-blur-md flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(14,165,233,0.15)]">
             <svg
-              className="w-6 h-6 text-white"
+              className="w-6 h-6 text-[#38BDF8]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -36,7 +36,7 @@ export default function LeftPanel() {
               />
             </svg>
           </div>
-          <span className="text-white font-bold text-lg tracking-tight">
+          <span className="text-gray-100 font-bold text-lg tracking-tight">
             MediCare Connect
           </span>
         </div>
@@ -47,17 +47,17 @@ export default function LeftPanel() {
         {/* Stats card illustration */}
         <div className="mb-8 lg:mb-10">
           <div className="relative mx-auto max-w-[320px]">
-            <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+            <div className="bg-[#111827]/60 backdrop-blur-md rounded-2xl p-6 border border-gray-800 shadow-2xl">
               {/* Doctor row */}
               <div className="flex items-start gap-4 mb-5">
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 text-2xl">
+                <div className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center shrink-0 text-2xl border border-gray-700">
                   👨‍⚕️
                 </div>
                 <div className="flex-1">
-                  <div className="bg-white/20 rounded-lg h-3 w-28 mb-2" />
-                  <div className="bg-white/15 rounded-lg h-2.5 w-20" />
+                  <div className="bg-gray-800 rounded-lg h-3 w-28 mb-2" />
+                  <div className="bg-gray-800/60 rounded-lg h-2.5 w-20" />
                 </div>
-                <div className="ml-auto bg-emerald-500/30 text-white text-xs font-semibold px-2.5 py-1 rounded-full border border-white/20">
+                <div className="ml-auto bg-emerald-500/10 text-[#34D399] text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-500/20 shadow-[0_0_10px_rgba(52,211,153,0.1)]">
                   Available
                 </div>
               </div>
@@ -70,20 +70,20 @@ export default function LeftPanel() {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    className="bg-white/10 rounded-xl p-3 text-center"
+                    className="bg-[#1E293B]/50 border border-gray-800/60 rounded-xl p-3 text-center"
                   >
-                    <div className="text-white font-bold text-lg">
+                    <div className="text-gray-100 font-bold text-lg">
                       {s.value}
                     </div>
-                    <div className="text-white/60 text-xs">{s.label}</div>
+                    <div className="text-gray-400 text-xs">{s.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Floating pill */}
-            <div className="absolute -bottom-4 -right-2 bg-white rounded-xl shadow-lg px-3 py-2 flex items-center gap-2 text-xs font-medium text-[#1E293B]">
-              <span className="w-2 h-2 bg-emerald-500 rounded-full shrink-0 animate-pulse" />
+            <div className="absolute -bottom-4 -right-2 bg-[#1E293B] border border-gray-800 rounded-xl shadow-2xl px-3 py-2 flex items-center gap-2 text-xs font-medium text-gray-200 backdrop-blur-md">
+              <span className="w-2 h-2 bg-[#34D399] rounded-full shrink-0 animate-pulse shadow-[0_0_8px_#34D399]" />
               Appointment confirmed ✓
             </div>
           </div>
@@ -91,12 +91,12 @@ export default function LeftPanel() {
 
         {/* Headline */}
         <div>
-          <h1 className="text-white text-3xl lg:text-4xl font-bold leading-tight mb-4">
+          <h1 className="text-gray-100 text-3xl lg:text-4xl font-bold leading-tight mb-4">
             Your Health,
             <br />
-            <span className="text-sky-200 opacity-90">Managed Simply.</span>
+            <span className="text-[#38BDF8] opacity-90">Managed Simply.</span>
           </h1>
-          <p className="text-white/70 text-base leading-relaxed max-w-xs">
+          <p className="text-gray-400 text-base leading-relaxed max-w-xs">
             Book appointments, manage healthcare records, and connect with
             trusted doctors — all in one place.
           </p>
@@ -111,7 +111,7 @@ export default function LeftPanel() {
           ].map((b) => (
             <div
               key={b.label}
-              className="flex items-center gap-2 bg-white/10 rounded-full px-3 py-1.5 text-white/80 text-xs"
+              className="flex items-center gap-2 bg-[#1E293B]/60 border border-gray-800 rounded-full px-3 py-1.5 text-gray-300 text-xs backdrop-blur-sm"
             >
               <span>{b.icon}</span>
               {b.label}
@@ -122,8 +122,8 @@ export default function LeftPanel() {
 
       {/* Footer */}
       <div className="relative z-10 mt-8 lg:mt-0">
-        <p className="text-white/40 text-xs">
-          © 2025 MediCare Connect. All rights reserved.
+        <p className="text-gray-500 text-xs">
+          © 2026 MediCare Connect. All rights reserved.
         </p>
       </div>
     </div>

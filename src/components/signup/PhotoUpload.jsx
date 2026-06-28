@@ -3,7 +3,11 @@
 import { useState, useRef } from "react";
 import { uploadToImageBB, validateImageFile } from "@/lib/imagebb";
 
-export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) {
+export default function PhotoUpload({
+  onUploadComplete,
+  onUploadStart,
+  error,
+}) {
   const [preview, setPreview] = useState(null);
   const [fileName, setFileName] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -22,7 +26,9 @@ export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) 
     const reader = new FileReader();
     reader.onload = (e) => {
       setPreview(e.target.result);
-      setFileName(file.name.length > 26 ? file.name.slice(0, 24) + "…" : file.name);
+      setFileName(
+        file.name.length > 26 ? file.name.slice(0, 24) + "…" : file.name,
+      );
     };
     reader.readAsDataURL(file);
 
@@ -72,40 +78,58 @@ export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) 
     onUploadComplete(null, null);
   }
 
+  // zoneClass এর জন্য ডার্ক থিম কন্ডিশন (আপনার মূল কোডের সুবিধার্থে যোগ করা হলো)
   const zoneClass = [
-    "border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200",
-    error ? "border-[#EF4444] bg-[#FFF5F5]" : "",
-    isDragging ? "border-[#0EA5E9] bg-[#F0F9FF]" : "",
-    preview && !uploading ? "border-solid border-[#10B981] bg-[#F0FDF4]" : "",
-    !error && !isDragging && !preview ? "border-[#CBD5E1] bg-[#FAFAFA] hover:border-[#0EA5E9] hover:bg-[#F0F9FF]" : "",
+    "border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all duration-200 bg-[#1E293B]/40 backdrop-blur-sm",
+    isDragging
+      ? "border-[#0EA5E9] bg-[#1E293B] shadow-[0_0_15px_rgba(14,165,233,0.1)]"
+      : error
+        ? "border-red-500/50 bg-red-950/10"
+        : "border-gray-800 hover:border-[#0EA5E9] hover:bg-[#1E293B]/50",
   ].join(" ");
 
   return (
     <div>
-      <label className="block text-[13px] font-semibold text-[#1E293B] mb-2">
-        Profile Photo <span className="text-[#EF4444]">*</span>
-        <span className="ml-1 text-[#94A3B8] font-normal text-[11px]">JPG, PNG, WEBP · Max 5MB</span>
+      <label className="block text-[13px] font-semibold text-gray-200 mb-2">
+        Profile Photo <span className="text-red-400">*</span>
+        <span className="ml-1 text-gray-400 font-normal text-[11px]">
+          JPG, PNG, WEBP · Max 5MB
+        </span>
       </label>
 
       <div
         className={zoneClass}
         onClick={() => !uploading && inputRef.current?.click()}
-        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragging(true);
+        }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
       >
         {/* Default state */}
         {!preview && !uploading && (
           <div>
-            <div className="w-10 h-10 rounded-full bg-[#E0F2FE] flex items-center justify-center mx-auto mb-3">
-              <svg className="w-5 h-5 text-[#0EA5E9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <div className="w-10 h-10 rounded-full bg-[#1E293B] border border-gray-800 flex items-center justify-center mx-auto mb-3 shadow-[0_0_10px_rgba(14,165,233,0.05)]">
+              <svg
+                className="w-5 h-5 text-[#38BDF8]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
               </svg>
             </div>
-            <p className="text-[#64748B] text-sm font-medium">
+            <p className="text-gray-400 text-sm font-medium">
               Drop photo here or{" "}
-              <span className="text-[#0EA5E9] font-semibold">browse</span>
+              <span className="text-[#38BDF8] font-semibold hover:underline">
+                browse
+              </span>
             </p>
           </div>
         )}
@@ -114,8 +138,10 @@ export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) 
         {uploading && (
           <div className="flex flex-col items-center gap-2">
             <div className="w-8 h-8 border-2 border-[#0EA5E9] border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-[#0EA5E9] font-medium">Uploading to ImageBB…</p>
-            <div className="w-full h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
+            <p className="text-sm text-[#38BDF8] font-medium">
+              Uploading to ImageBB…
+            </p>
+            <div className="w-full h-1 bg-gray-800 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-300"
                 style={{
@@ -124,7 +150,7 @@ export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) 
                 }}
               />
             </div>
-            <p className="text-xs text-[#94A3B8]">{Math.round(progress)}%</p>
+            <p className="text-xs text-gray-400">{Math.round(progress)}%</p>
           </div>
         )}
 
@@ -134,14 +160,16 @@ export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) 
             <img
               src={preview}
               alt="Preview"
-              className="w-20 h-20 rounded-full object-cover ring-2 ring-[#10B981] ring-offset-2"
+              className="w-20 h-20 rounded-full object-cover ring-2 ring-[#10B981] ring-offset-2 ring-offset-[#111827]"
             />
-            <p className="text-sm font-medium text-[#1E293B]">{fileName}</p>
-            <p className="text-xs text-[#10B981] font-semibold">✓ Uploaded successfully</p>
+            <p className="text-sm font-medium text-gray-100">{fileName}</p>
+            <p className="text-xs text-[#34D399] font-semibold flex items-center gap-1">
+              Uploaded successfully
+            </p>
             <button
               type="button"
               onClick={resetPhoto}
-              className="text-xs text-[#EF4444] hover:underline mt-0.5"
+              className="text-xs text-red-400 hover:underline mt-0.5"
             >
               Remove photo
             </button>
@@ -158,7 +186,7 @@ export default function PhotoUpload({ onUploadComplete, onUploadStart, error }) 
       />
 
       {error && (
-        <p className="flex items-center gap-1 text-[#EF4444] text-xs mt-1">
+        <p className="flex items-center gap-1 text-red-400 text-xs mt-1">
           <span>⚠</span> {error.message}
         </p>
       )}

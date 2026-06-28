@@ -15,11 +15,11 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      role: {
-        default: "patient",
-      },
       isSuspended: {
         default: false,
+      },
+      role: {
+        default: "patient",
       },
     },
   },

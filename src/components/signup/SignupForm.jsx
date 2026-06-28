@@ -17,10 +17,6 @@ import { toast } from "react-toastify";
 import { AddNewDoctor, AddNewPatient } from "@/services/server/action";
 import GoogleSigninButton from "../ui/GoogleSigninButton";
 
-// ─── Reusable field components ────────────────────────────────────
-
-// ─── Main Form ─────────────────────────────────────────────────────
-
 export default function SignupForm() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
@@ -44,13 +40,10 @@ export default function SignupForm() {
   const role = watch("role");
   const password = watch("password");
 
-  // ── Role handler ────────────────────────────────
   function handleRoleChange(value) {
     setValue("role", value, { shouldValidate: true });
-    // রোল পরিবর্তন হলে ডক্টর স্পেসিফিক ট্রিগার বা এরর ক্লিয়ার করতে পারেন
   }
 
-  // ── Photo upload handlers ───────────────────────
   function handlePhotoUploadComplete(url, uploadError) {
     if (uploadError) {
       setError("photoUrl", { type: "manual", message: uploadError });
@@ -63,7 +56,6 @@ export default function SignupForm() {
     }
   }
 
-  // ── Submit ──────────────────────────────────────
   async function onSubmit(userData) {
     try {
       const {
@@ -81,26 +73,23 @@ export default function SignupForm() {
         specialization,
       } = userData;
 
-      // ১. প্রথমে Better Auth এ সাইন-আপ
       const { data, error } = await authClient.signUp.email({
         name: fullName,
         email,
         password,
         image: photoUrl,
         role,
-        isSuspended,
+        isSuspended: false,
       });
 
-      // ২. কোনো এরর আসলে এখানেই আটকে দিন
       if (error) {
         console.error("Better Auth Error:", error.message);
         setError("root", { type: "manual", message: error.message });
         return;
       }
 
-      // ৩. ডেটা সফলভাবে আসলে ডেটাবেজে সেভ করার লজিক
       if (data && data.user) {
-        const userRole = data.user.role; // সঠিক রোল ট্র্যাক করার জন্য
+        const userRole = data.user.role;
 
         if (userRole === "patient") {
           const patientData = {
@@ -119,21 +108,18 @@ export default function SignupForm() {
         if (userRole === "doctor") {
           const doctorData = {
             userId: data.user.id,
-            doctorName: data.user.name, // name -> doctorName
+            doctorName: data.user.name,
             email: data.user.email,
-            profileImage: data.user.image, // image -> profileImage
+            profileImage: data.user.image,
             gender,
             phone,
             role: userRole,
             specialization,
             qualifications,
-            experience: Number(experience), // ডেটাবেজ স্কিমা অনুযায়ী Number এ কনভার্ট করে নেওয়া নিরাপদ
-            consultationFee: Number(fee), // fee -> consultationFee
-            hospitalName: hospital, // hospital -> hospitalName
-
-            // ডক্টর স্কিমার বাকি প্রয়োজনীয় ফিল্ডগুলো (যদি ফর্মে থাকে, নাহলে ডিফল্ট অ্যারে/ভ্যালু)
+            experience: Number(experience),
+            consultationFee: Number(fee),
+            hospitalName: hospital,
             availableDays: ["Saturday", "Monday", "Wednesday"],
-
             workingHours: [
               {
                 start: "15:00",
@@ -141,15 +127,13 @@ export default function SignupForm() {
               },
             ],
             slotDuration: 30,
-
-            verificationStatus: "pending", // সাইন-আপের সময় ডিফল্ট 'pending' বা 'verified' দিতে পারেন
+            verificationStatus: "pending",
           };
 
           const res = await AddNewDoctor(doctorData);
           console.log("Doctor db response:", res);
         }
 
-        // সবকিছু সফল হলে সাকসেস মোডাল দেখান
         setShowSuccess(true);
       }
     } catch (err) {
@@ -160,16 +144,14 @@ export default function SignupForm() {
     }
   }
 
-  // ── Google Sign In ──────────────────────────────
-
   return (
     <>
       <SuccessModal show={showSuccess} role={role} />
 
-      <div className="bg-white rounded-2xl p-7 lg:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_24px_rgba(14,165,233,0.08)]">
+      <div className="bg-[#111827] border border-gray-800 rounded-2xl p-7 lg:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] relative overflow-hidden backdrop-blur-md">
         {/* Mobile logo */}
         <div className="flex items-center gap-2 mb-5 lg:hidden">
-          <div className="w-8 h-8 rounded-lg bg-[#0EA5E9] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-[#0EA5E9] flex items-center justify-center shadow-[0_0_15px_rgba(14,165,233,0.4)]">
             <svg
               className="w-4 h-4 text-white"
               fill="none"
@@ -184,15 +166,15 @@ export default function SignupForm() {
               />
             </svg>
           </div>
-          <span className="font-bold text-[#1E293B]">MediCare Connect</span>
+          <span className="font-bold text-gray-100">MediCare Connect</span>
         </div>
 
         {/* Heading */}
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-[#1E293B]">
+          <h2 className="text-2xl font-bold text-gray-100">
             Create Your Account
           </h2>
-          <p className="text-[#64748B] text-sm mt-1">
+          <p className="text-gray-400 text-sm mt-1">
             Start managing your healthcare journey.
           </p>
         </div>
@@ -205,16 +187,16 @@ export default function SignupForm() {
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-[#E2E8F0]" />
-          <span className="text-xs text-[#94A3B8] font-medium whitespace-nowrap">
+          <div className="flex-1 h-px bg-gray-800" />
+          <span className="text-xs text-gray-400 font-medium whitespace-nowrap">
             or create account manually
           </span>
-          <div className="flex-1 h-px bg-[#E2E8F0]" />
+          <div className="flex-1 h-px bg-gray-800" />
         </div>
 
         {/* Root error */}
         {errors.root && (
-          <div className="bg-[#FFF5F5] border border-[#FECACA] rounded-lg px-4 py-3 mb-4 text-sm text-[#EF4444]">
+          <div className="bg-red-950/40 border border-red-500/40 rounded-lg px-4 py-3 mb-4 text-sm text-red-400">
             {errors.root.message}
           </div>
         )}
@@ -224,8 +206,8 @@ export default function SignupForm() {
           <div className="space-y-4">
             {/* Full Name */}
             <div>
-              <Label htmlFor="fullName">
-                Full Name <span className="text-[#EF4444]">*</span>
+              <Label htmlFor="fullName" className="text-gray-100">
+                Full Name <span className="text-red-400">*</span>
               </Label>
               <Input
                 id="fullName"
@@ -233,6 +215,7 @@ export default function SignupForm() {
                 placeholder="Dr. Sarah Johnson"
                 autoComplete="name"
                 hasError={!!errors.fullName}
+                className="bg-[#1E293B] border-gray-800 text-gray-100 placeholder-gray-500 focus:border-[#0EA5E9]"
                 {...register("fullName", {
                   required: "Full name is required.",
                 })}
@@ -242,8 +225,8 @@ export default function SignupForm() {
 
             {/* Email */}
             <div>
-              <Label htmlFor="email">
-                Email Address <span className="text-[#EF4444]">*</span>
+              <Label htmlFor="email" className="text-gray-100">
+                Email Address <span className="text-red-400">*</span>
               </Label>
               <Input
                 id="email"
@@ -251,6 +234,7 @@ export default function SignupForm() {
                 placeholder="sarah@hospital.com"
                 autoComplete="email"
                 hasError={!!errors.email}
+                className="bg-[#1E293B] border-gray-800 text-gray-100 placeholder-gray-500 focus:border-[#0EA5E9]"
                 {...register("email", {
                   required: "Email is required.",
                   pattern: {
@@ -265,8 +249,8 @@ export default function SignupForm() {
             {/* Phone + Gender */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <Label htmlFor="phone">
-                  Phone <span className="text-[#EF4444]">*</span>
+                <Label htmlFor="phone" className="text-gray-100">
+                  Phone <span className="text-red-400">*</span>
                 </Label>
                 <Input
                   id="phone"
@@ -274,6 +258,7 @@ export default function SignupForm() {
                   placeholder="+880 1XXX-XXXXXX"
                   autoComplete="tel"
                   hasError={!!errors.phone}
+                  className="bg-[#1E293B] border-gray-800 text-gray-100 placeholder-gray-500 focus:border-[#0EA5E9]"
                   {...register("phone", {
                     required: "Phone number is required.",
                   })}
@@ -281,27 +266,30 @@ export default function SignupForm() {
                 <FieldError error={errors.phone} />
               </div>
               <div>
-                <Label htmlFor="gender">
-                  Gender <span className="text-[#EF4444]">*</span>
+                <Label htmlFor="gender" className="text-gray-100">
+                  Gender <span className="text-red-400">*</span>
                 </Label>
                 <select
                   id="gender"
                   className={[
-                    "w-full px-3.5 py-2.5 text-sm border-[1.5px] rounded-[10px] bg-white outline-none transition-all duration-200 cursor-pointer appearance-none",
-                    "text-[#1E293B]",
+                    "w-full px-3.5 py-2.5 text-sm border rounded-[10px] bg-[#1E293B] outline-none transition-all duration-200 cursor-pointer appearance-none text-gray-100",
                     errors.gender
-                      ? "border-[#EF4444] shadow-[0_0_0_3px_rgba(239,68,68,0.10)]"
-                      : "border-[#E2E8F0] focus:border-[#0EA5E9] focus:shadow-[0_0_0_3px_rgba(14,165,233,0.12)]",
+                      ? "border-red-500/50 shadow-[0_0_0_3px_rgba(239,68,68,0.15)]"
+                      : "border-gray-800 focus:border-[#0EA5E9] focus:shadow-[0_0_0_3px_rgba(14,165,233,0.15)]",
                   ].join(" ")}
                   {...register("gender", {
                     required: "Please select your gender.",
                   })}
                 >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="non-binary">Non-binary</option>
-                  <option value="prefer-not">Prefer not to say</option>
+                  <option value="" className="bg-[#111827]">
+                    Select gender
+                  </option>
+                  <option value="male" className="bg-[#111827]">
+                    Male
+                  </option>
+                  <option value="female" className="bg-[#111827]">
+                    Female
+                  </option>
                 </select>
                 <FieldError error={errors.gender} />
               </div>
@@ -343,8 +331,8 @@ export default function SignupForm() {
 
             {/* Password */}
             <div>
-              <Label htmlFor="password">
-                Password <span className="text-[#EF4444]">*</span>
+              <Label htmlFor="password" className="text-gray-100">
+                Password <span className="text-red-400">*</span>
               </Label>
               <PasswordInput
                 id="password"
@@ -353,6 +341,7 @@ export default function SignupForm() {
                 hasError={!!errors.password}
                 autoComplete="new-password"
                 placeholder="Min 6 chars, 1 number, 1 special"
+                className="bg-[#1E293B] border-gray-800 text-gray-100 placeholder-gray-500 focus:border-[#0EA5E9]"
                 validationRules={{
                   required: "Password is required.",
                   minLength: {
@@ -374,8 +363,8 @@ export default function SignupForm() {
 
             {/* Confirm Password */}
             <div>
-              <Label htmlFor="confirmPassword">
-                Confirm Password <span className="text-[#EF4444]">*</span>
+              <Label htmlFor="confirmPassword" className="text-gray-100">
+                Confirm Password <span className="text-red-400">*</span>
               </Label>
               <PasswordInput
                 id="confirmPassword"
@@ -384,6 +373,7 @@ export default function SignupForm() {
                 hasError={!!errors.confirmPassword}
                 autoComplete="new-password"
                 placeholder="Re-enter your password"
+                className="bg-[#1E293B] border-gray-800 text-gray-100 placeholder-gray-500 focus:border-[#0EA5E9]"
                 validationRules={{
                   required: "Please confirm your password.",
                   validate: (value) =>
@@ -399,14 +389,14 @@ export default function SignupForm() {
             <input
               type="checkbox"
               id="terms"
-              className="mt-0.5 w-4 h-4 rounded border-[#E2E8F0] accent-[#0EA5E9] cursor-pointer flex-shrink-0"
+              className="mt-0.5 w-4 h-4 rounded border-gray-800 bg-[#1E293B] text-[#0EA5E9] focus:ring-offset-0 focus:ring-1 focus:ring-[#0EA5E9] cursor-pointer flex-shrink-0"
               {...register("terms", {
                 required: "You must accept the terms and conditions.",
               })}
             />
             <label
               htmlFor="terms"
-              className="text-xs text-[#64748B] cursor-pointer leading-relaxed"
+              className="text-xs text-gray-400 cursor-pointer leading-relaxed"
             >
               I agree to the{" "}
               <a
@@ -431,7 +421,7 @@ export default function SignupForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-5 py-3 px-6 rounded-[10px] font-semibold text-white text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_4px_16px_rgba(14,165,233,0.35)] hover:-translate-y-px active:translate-y-0"
+            className="w-full mt-5 py-3 px-6 rounded-[10px] font-semibold text-white text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_4px_20px_rgba(14,165,233,0.4)] hover:-translate-y-px active:translate-y-0"
             style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
           >
             {isSubmitting ? (
@@ -446,10 +436,10 @@ export default function SignupForm() {
         </form>
 
         {/* Sign In link */}
-        <p className="text-center text-sm text-[#64748B] mt-5">
+        <p className="text-center text-sm text-gray-400 mt-5">
           Already have an account?{" "}
           <a
-            href="/login"
+            href="/auth/signup"
             className="text-[#0EA5E9] font-semibold hover:underline"
           >
             Sign In
