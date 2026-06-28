@@ -1,18 +1,10 @@
 // ========== all companies for admin =====================
 
-import { serverFetch } from "../core/serverFetch";
-
-/**
- * getLimitedDoctors — calls the real /api/doctors endpoint via serverFetch.
- *
- * Returns: { doctors, total, totalPages, currentPage } — matches the
- * fixed backend route's response shape. If serverFetch fails (returns
- * null), we fall back to a safe empty shape so the UI doesn't crash.
- */
+import { protectedFetch, serverFetch } from "../core/serverFetch";
 
 //========================= get patients by id =====================
 export const getPatientById = async (id) => {
-  return serverFetch(`/api/patients/${id}`);
+  return protectedFetch(`/api/patients/${id}`);
 };
 
 export const getLimitedDoctors = async ({
@@ -42,7 +34,7 @@ export const getLimitedDoctors = async ({
 
 // ======================get doctors by id =====================
 export const getDoctorById = async (id, query) => {
-  return serverFetch(`/api/doctors/${id}?from=${query}`);
+  return protectedFetch(`/api/doctors/${id}?from=${query}`);
 };
 
 // ====================== get stats =====================
@@ -51,42 +43,42 @@ export const getStats = async () => {
 };
 
 export const getDoctorStats = async (doctorId) => {
-  return serverFetch(`/api/stats/doctor?id=${doctorId}`);
+  return protectedFetch(`/api/stats/doctor?id=${doctorId}`);
 };
 //================= appointments related data fetching =====================
 export const getAppointmentByAppointmentId = async (id) => {
-  return serverFetch(`/api/appointments/${id}?forAppointment=true`);
+  return protectedFetch(`/api/appointments/${id}?forAppointment=true`);
 };
 export const getAppointmentByPaymentId = async (id) => {
-  return serverFetch(`/api/appointments/${id}?forPayment=true`);
+  return protectedFetch(`/api/appointments/${id}?forPayment=true`);
 };
 export const getAppointmentByPatientId = async (id) => {
-  return serverFetch(`/api/appointments/${id}?forPatient=true`);
+  return protectedFetch(`/api/appointments/${id}?forPatient=true`);
 };
 
 export const getAppointmentsByDoctorId = async (doctorId) => {
-  return serverFetch(`/api/appointments/${doctorId}?forDoctor=true`);
+  return protectedFetch(`/api/appointments/${doctorId}?forDoctor=true`);
 };
 
 export const getApointmentsByDoctorId = async (doctorId, date) => {
-  return serverFetch(`/api/appointmentslots/${doctorId}?date=${date}`);
+  return protectedFetch(`/api/appointmentslots/${doctorId}?date=${date}`);
 };
 
 // ====================== payments related data fetching =====================
 export const getPaymentsByDoctorId = async (doctorId) => {
-  return serverFetch(`/api/payment/${doctorId}?forDoctor=true`);
+  return protectedFetch(`/api/payment/${doctorId}?forDoctor=true`);
 };
 
 export const getPaymentsByPatientId = async (patientId) => {
-  return serverFetch(`/api/payment/${patientId}?forPatient=true`);
+  return protectedFetch(`/api/payment/${patientId}?forPatient=true`);
 };
 
 //===================== reviews related data fetching =====================
 export const getReviewsByPatientId = async (patientId) => {
-  return serverFetch(`/api/reviews/${patientId}?forPatient=true`);
+  return protectedFetch(`/api/reviews/${patientId}?forPatient=true`);
 };
 export const getReviewsByDoctorId = async (doctorId) => {
-  return serverFetch(`/api/reviews/${doctorId}?forDoctor=true`);
+  return protectedFetch(`/api/reviews/${doctorId}?forDoctor=true`);
 };
 
 export const searchDoctorsFromServer = async (searchQuery) => {
@@ -99,42 +91,42 @@ export const searchDoctorsFromServer = async (searchQuery) => {
 
 // ডক্টর এডিট পেজে যাওয়ার পর এগুলো আপডেট করবেন, শুরুতে ডিফল্ট স্টেট:
 export const getPrescriptionsByDoctorId = async (doctorId) => {
-  return serverFetch(`/api/prescriptions/${doctorId}?forDoctor=true`);
+  return protectedFetch(`/api/prescriptions/${doctorId}?forDoctor=true`);
 };
 export const getPrescriptionsByPatientId = async (patientId) => {
-  return serverFetch(`/api/prescriptions/${patientId}?forPatient=true`);
+  return protectedFetch(`/api/prescriptions/${patientId}?forPatient=true`);
 };
 
 export const getPrescriptionById = async (id) => {
-  return serverFetch(`/api/prescriptions/${id}`);
+  return protectedFetch(`/api/prescriptions/${id}`);
 };
 
 // ===================== admin related data fetching =====================
 
 export const getAdminStats = async () => {
-  return serverFetch(`/api/stats/admin`);
+  return protectedFetch(`/api/stats/admin`);
 };
 
 export const getAllUsers = async () => {
-  return serverFetch(`/api/users`);
+  return protectedFetch(`/api/users`);
 };
 
 export const getAllDoctors = async () => {
-  return serverFetch(`/api/doctors?allDoctors=true`);
+  return protectedFetch(`/api/doctors?allDoctors=true`);
 };
 
 export const getAllAppointment = async () => {
-  return serverFetch(`/api/appointments`);
+  return protectedFetch(`/api/appointments`);
 };
 
 export const getUserById = async (id) => {
-  return serverFetch(`/api/users/${id}`);
+  return protectedFetch(`/api/users/${id}`);
 };
 
 export const getPaymentHistory = async () => {
-  return serverFetch(`/api/payment`);
+  return protectedFetch(`/api/payment`);
 };
 
 export const getTopRatedDocors = async () => {
-  return serverFetch(`/api/reviews/chartdata`);
+  return protectedFetch(`/api/reviews/chartdata`);
 };

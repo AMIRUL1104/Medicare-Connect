@@ -1,5 +1,16 @@
 "use server";
+import { getUserToken } from "./session";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+export const authHeader = async () => {
+  const token = await getUserToken();
+  const header = token
+    ? {
+        authorization: `Bearer ${token} `,
+      }
+    : {};
+  return header;
+};
 
 export async function serverFetch(path) {
   try {
@@ -17,3 +28,11 @@ export async function serverFetch(path) {
     return null; // বা আপনার প্রয়োজন মতো এরর অবজেক্ট রিটার্ন করতে পারেন
   }
 }
+
+export const protectedFetch = async (path) => {
+  const res = await fetch(`${baseUrl}${path}`, {
+    headers: await authHeader(),
+  });
+
+  return res.json();
+};
