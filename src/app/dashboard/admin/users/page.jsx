@@ -2,6 +2,7 @@ import React from "react";
 import { Users, UserCheck } from "lucide-react";
 import { getAllUsers } from "@/services/server/api";
 import UserActionButtons from "./UserActionButtons"; // সঠিক পাথে ইম্পোর্ট করুন
+import RoleSelectorDropdown from "./RoleChange";
 
 export const metadata = {
   title: "Manage Users | MediCare Connect",
@@ -70,7 +71,7 @@ async function UsersManagePage() {
                     </td>
 
                     {/* রোল (Role) */}
-                    <td className="py-4 px-6">
+                    {/* <td className="py-4 px-6">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium uppercase tracking-wider ${
                           userItem.role === "admin"
@@ -82,8 +83,11 @@ async function UsersManagePage() {
                       >
                         {userItem.role}
                       </span>
-                    </td>
-
+                    </td> */}
+                    <RoleSelectorDropdown
+                      userId={userItem._id}
+                      currentRole={userItem.role}
+                    />
                     {/* স্ট্যাটাস (Active / Suspended) */}
                     <td className="py-4 px-6">
                       <span
@@ -103,6 +107,8 @@ async function UsersManagePage() {
                         {userItem.isSuspended ? "Suspended" : "Active"}
                       </span>
                     </td>
+
+                    {/* রোল (Role) */}
 
                     {/* ক্লায়েন্ট একশন বাটন সেকশন */}
                     <td className="py-4 px-6 text-right">
