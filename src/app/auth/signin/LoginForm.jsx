@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import Logo from "@/components/shared/Logo";
-import GoogleSigninButton from "@/components/ui/GoogleSigninButton";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -82,10 +81,6 @@ export default function LoginForm() {
       </div>
 
       {/* গুগল সাইন ইন বাটন */}
-      <GoogleSigninButton
-        isGoogleLoading={isGoogleLoading}
-        setIsGoogleLoading={setIsGoogleLoading}
-      />
 
       {/* ডিভাইডার */}
       <div className="flex items-center gap-3 my-5">
