@@ -2,11 +2,6 @@
 
 import { Controller, useForm } from "react-hook-form";
 
-import RoleSelector from "@/components/Signup/RoleSelector";
-import PhotoUpload from "@/components/Signup/PhotoUpload";
-import DoctorFields from "@/components/Signup/DoctorFields";
-import PasswordStrength from "@/components/Signup/PasswordStrength";
-import SuccessModal from "@/components/Signup/SuccessModal";
 import { Label } from "../ui/Label";
 import { FieldError } from "../ui/FieldError";
 import { Input } from "../ui/Input";
@@ -16,6 +11,11 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { AddNewDoctor, AddNewPatient } from "@/services/server/action";
 import GoogleSigninButton from "../ui/GoogleSigninButton";
+import DoctorFields from "./DoctorFields";
+import SuccessModal from "./SuccessModal";
+import RoleSelector from "./RoleSelector";
+import PhotoUpload from "./PhotoUpload";
+import PasswordStrength from "./PasswordStrength";
 
 export default function SignupForm() {
   const [showSuccess, setShowSuccess] = useState(false);

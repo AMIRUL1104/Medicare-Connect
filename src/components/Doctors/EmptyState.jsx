@@ -1,4 +1,4 @@
-import ClearFiltersButton from "@/components/doctors/ClearFiltersButton";
+import ClearFiltersButton from "@/components/Doctors/ClearFiltersButton";
 
 // Server Component shell. ClearFiltersButton inside it is the only
 // client piece (needs router access).

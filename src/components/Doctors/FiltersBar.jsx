@@ -1,7 +1,7 @@
-import SearchInput from "@/components/doctors/SearchInput";
-import SortDropdown from "@/components/doctors/SortDropdown";
-import ClearFiltersButton from "@/components/doctors/ClearFiltersButton";
-import ResultsCount from "@/components/doctors/ResultsCount";
+import SearchInput from "@/components/Doctors/SearchInput";
+import SortDropdown from "@/components/Doctors/SortDropdown";
+import ClearFiltersButton from "@/components/Doctors/ClearFiltersButton";
+import ResultsCount from "@/components/Doctors/ResultsCount";
 
 /**
  * FiltersBar — Server Component shell.

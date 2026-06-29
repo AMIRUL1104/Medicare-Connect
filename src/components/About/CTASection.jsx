@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FadeIn from "@/components/about/FadeIn";
+import FadeIn from "@/components/About/FadeIn";
 import HeroCTAButtons from "../shared/HeroCTAButtons";
 
 // Server Component. Markup, gradient, and links are server-rendered.
