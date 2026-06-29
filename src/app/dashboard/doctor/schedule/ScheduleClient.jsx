@@ -98,7 +98,7 @@ export default function ScheduleClient({ doctorData }) {
       className="max-w-4xl mx-auto space-y-8"
     >
       {/* Header */}
-      <div className="border-b border-gray-800 pb-5 flex justify-between items-center">
+      <div className="border-b border-gray-800 pb-5 flex max-sm:flex-col sm:justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-wide">
             Manage Schedule Structure

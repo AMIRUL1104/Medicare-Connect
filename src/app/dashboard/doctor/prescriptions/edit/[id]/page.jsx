@@ -36,7 +36,7 @@ async function EditPrescriptionPage({ params }) {
       <div className="max-w-3xl mx-auto space-y-6">
         {/* ব্যাক বাটন */}
         <Link
-          href="/dashboard/prescription"
+          href="/dashboard/doctor/prescriptions"
           className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors w-fit"
         >
           <ChevronLeft className="size-4" /> Cancel & Go Back

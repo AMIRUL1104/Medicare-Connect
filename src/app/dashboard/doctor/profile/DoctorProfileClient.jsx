@@ -77,52 +77,60 @@ export default function DoctorProfileClient({ initialData }) {
     <>
       <div className="max-w-4xl mx-auto space-y-6">
         {/* প্রোফাইল হেডার কার্ড */}
-        <div className="relative bg-[#161D30] border border-gray-800 rounded-2xl p-6 md:p-8 overflow-hidden shadow-xl">
-          <div className="absolute top-0 right-0 p-6">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white font-medium text-sm rounded-xl transition-all shadow-lg shadow-sky-500/10"
-            >
-              <Edit2 className="size-4" /> Edit Profile
-            </button>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left">
-            {/* ডক্টর ইমেজ */}
-            <div className="relative size-24 md:size-28 rounded-2xl border-2 border-gray-800 overflow-hidden bg-[#0E121F] flex items-center justify-center">
-              {doctor.profileImage ? (
-                <Image
-                  src={doctor.profileImage}
-                  alt={doctor.doctorName}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <User className="size-12 text-gray-500" />
-              )}
-            </div>
-
-            {/* ডক্টর বেসিক ইনফো */}
-            <div className="space-y-2 pt-2">
-              <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
-                <h1 className="text-2xl md:text-3xl font-bold text-white">
-                  {doctor.doctorName}
-                </h1>
-                {doctor.verificationStatus === "verified" && (
-                  <BadgeCheck className="size-6 text-emerald-500 fill-emerald-500/10" />
+        <div className="max-w-4xl mx-auto space-y-6 px-4 sm:px-0">
+          {/* প্রোফাইল হেডার কার্ড */}
+          {/* রেসপন্সিভ চেঞ্জ: মোবাইলে flex-col-reverse দেওয়া হয়েছে যাতে বাটন নিচে বা উপরে সুন্দরভাবে ফিট হয়। প্যাডিং p-5 থেকে sm:p-8 করা হয়েছে। */}
+          <div className="relative flex flex-col-reverse md:flex-row md:items-start md:justify-between gap-6 bg-[#161D30] border border-gray-800 rounded-2xl p-5 sm:p-6 md:p-8 shadow-xl">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left w-full">
+              {/* ডক্টর ইমেজ */}
+              {/* রেসপন্সিভ চেঞ্জ: ফ্লেক্স-ক্রাশ রোধ করতে flex-shrink-0 ব্যবহার করা হয়েছে */}
+              <div className="relative size-24 md:size-28 rounded-2xl border-2 border-gray-800 overflow-hidden bg-[#0E121F] flex items-center justify-center flex-shrink-0">
+                {doctor.profileImage ? (
+                  <Image
+                    src={doctor.profileImage}
+                    alt={doctor.doctorName}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <User className="size-12 text-gray-500" />
                 )}
               </div>
-              <p className="text-sky-400 font-medium text-sm md:text-base">
-                {doctor.specialization}
-              </p>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#0E121F] text-xs font-semibold rounded-full border border-gray-800 text-gray-400">
-                <span
-                  className={`size-2 rounded-full ${doctor.verificationStatus === "verified" ? "bg-emerald-500" : "bg-amber-500"}`}
-                />
-                {doctor.verificationStatus === "verified"
-                  ? "Verified Specialist"
-                  : "Pending Verification"}
+
+              {/* ডক্টর বেসিক ইনফো */}
+              <div className="space-y-2 pt-1 w-full overflow-hidden">
+                <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
+                  {/* break-words ব্যবহার করা হয়েছে যাতে বড় নাম স্ক্রিনের বাইরে না যায় */}
+                  <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white break-words max-w-full">
+                    {doctor.doctorName}
+                  </h1>
+                  {doctor.verificationStatus === "verified" && (
+                    <BadgeCheck className="size-5 md:size-6 text-emerald-500 fill-emerald-500/10 flex-shrink-0" />
+                  )}
+                </div>
+                <p className="text-sky-400 font-medium text-sm md:text-base break-words">
+                  {doctor.specialization}
+                </p>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#0E121F] text-xs font-semibold rounded-full border border-gray-800 text-gray-400">
+                  <span
+                    className={`size-2 rounded-full ${doctor.verificationStatus === "verified" ? "bg-emerald-500" : "bg-amber-500"}`}
+                  />
+                  {doctor.verificationStatus === "verified"
+                    ? "Verified Specialist"
+                    : "Pending Verification"}
+                </div>
               </div>
+            </div>
+
+            {/* এডিট প্রোফাইল বাটন কন্টেইনার */}
+            {/* রেসপন্সিভ চেঞ্জ: মোবাইলে বাটনটি পুরো চওড়া (w-full) বা সেন্টারে থাকবে, আর বড় স্ক্রিনে (md) ডানপাশে পজিশন হবে */}
+            <div className="w-full md:w-auto flex justify-center md:justify-end md:absolute md:top-6 md:right-6">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 md:py-2 bg-sky-500 hover:bg-sky-600 text-white font-medium text-sm rounded-xl transition-all shadow-lg shadow-sky-500/10 flex-shrink-0"
+              >
+                <Edit2 className="size-4" /> Edit Profile
+              </button>
             </div>
           </div>
         </div>
