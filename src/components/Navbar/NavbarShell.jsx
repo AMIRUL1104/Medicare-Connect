@@ -1,49 +1,40 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-
-import UserMenu from "@/components/Navbar/UserMenu";
-import MobileMenu from "@/components/Navbar/MobileMenu";
+import { usePathname } from "next/navigation"; // রুট ট্র্যাক করার জন্য ইমপোর্ট
 import Logo from "../shared/Logo";
 import NavLinks from "../shared/NavLinks";
+import MobileMenu from "./MobileMenu";
+import UserMenu from "./UserMenu";
 
 /**
- * Handles sticky positioning + transparent-to-white scroll transition.
+ * Handles fixed dark layout navbar with current route highlighting.
  * Receives `user` from the server-side Navbar wrapper.
  */
 export default function NavbarShell({ user }) {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 12);
-    }
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const pathname = usePathname();
+  // ড্যাশবোর্ড রুটে আছে কিনা চেক করা (প্রয়োজনে মোবাইল মেনু বা অন্য লজিকে ব্যবহারের জন্য)
+  const isDashboardRoute = pathname?.startsWith("/dashboard");
 
   return (
-    <header
-      className={[
-        "sticky top-0 z-40 w-full transition-all duration-300",
-        scrolled
-          ? "bg-white border-b border-[#E2E8F0] shadow-sm"
-          : "bg-white/0 border-b border-transparent",
-      ].join(" ")}
-    >
-      <div className="max-w-7xl mx-auto px-4 lg:px-8">
+    <header className="sticky top-0 z-40 w-full bg-[#1E293B] border-b border-gray-800 shadow-md">
+      <div className="max-w-360 mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-17">
-          {/* Logo + desktop links */}
+          {/* Left side: Logo + Desktop links */}
           <div className="flex items-center gap-9">
-            <Logo size="md" />
+            {/* ডার্ক ব্যাকগ্রাউন্ডের কারণে লোগো ভেরিয়েন্ট ডার্ক করা হয়েছে */}
+            <Logo size="md" variant="dark" />
+
             <nav className="hidden lg:block">
-              <NavLinks />
+              <NavLinks
+                direction="row"
+                activeHref={pathname} // কারেন্ট পাথপাস করা হলো অ্যাক্টিভ লিংক কালার ব্লু করার জন্য
+                isDashboardMode={true} // যেহেতু ব্যাকগ্রাউন্ড সবসময় ডার্ক (#1E293B)
+              />
             </nav>
           </div>
 
-          {/* Right side — desktop */}
+          {/* Right side — Desktop profile/auth action buttons */}
           <div className="hidden lg:flex items-center gap-5">
             {user ? (
               <>
@@ -60,7 +51,7 @@ export default function NavbarShell({ user }) {
                 {/* Notification bell */}
                 <button
                   aria-label="Notifications"
-                  className="relative p-1.5 text-[#64748B] hover:text-[#0EA5E9] transition-colors"
+                  className="relative p-1.5 text-gray-400 hover:text-[#0EA5E9] transition-colors"
                 >
                   <svg
                     className="w-5 h-5"
@@ -84,7 +75,7 @@ export default function NavbarShell({ user }) {
               <>
                 <Link
                   href="/auth/signin"
-                  className="text-sm font-medium text-[#a5bee0] hover:text-[#0EA5E9] transition-colors"
+                  className="text-sm font-medium text-gray-300 hover:text-[#0EA5E9] transition-colors"
                 >
                   Sign In
                 </Link>
@@ -101,7 +92,7 @@ export default function NavbarShell({ user }) {
             )}
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger menu content */}
           <MobileMenu user={user} />
         </div>
       </div>

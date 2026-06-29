@@ -187,7 +187,7 @@ export function DashboardSidebar({ user }) {
   return (
     <>
       {/* 🖥️ Desktop Aside View (Premium Dark Layout) */}
-      <aside className="hidden w-64 shrink-0 border-r border-gray-800/80 md:block px-4 py-6 bg-[#0E121F] h-screen sticky top-0">
+      <aside className="hidden w-64 shrink-0 border-r border-gray-800/80 lg:block px-4 py-6 bg-[#0E121F] h-screen sticky top-0">
         {/* Logo/Brand Header */}
         <div className="px-4 pb-6 mb-4 border-b border-gray-800/50">
           <span className="text-xl font-bold tracking-wider bg-linear-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
@@ -198,7 +198,7 @@ export function DashboardSidebar({ user }) {
       </aside>
 
       {/* 📱 Mobile Drawer Trigger Button */}
-      <div className="md:hidden fixed top-4 left-4 z-40">
+      {/* <div className="md:hidden fixed top-4 left-4 z-40">
         <Drawer>
           <Button
             className="bg-[#111625] border border-gray-800 text-gray-300 hover:text-white"
@@ -210,7 +210,7 @@ export function DashboardSidebar({ user }) {
 
           <Drawer.Backdrop className="backdrop-blur-sm bg-black/60">
             <Drawer.Content placement="left">
-              {/* Mobile Drawer Content Theme */}
+               Mobile Drawer Content Theme 
               <Drawer.Dialog className="bg-[#0E121F] border-r border-gray-800 w-72 max-w-[80vw] h-full p-5 text-white">
                 <Drawer.CloseTrigger className="text-gray-400 hover:text-white" />
                 <Drawer.Header className="px-1 pb-4 mb-4 border-b border-gray-800/60">
@@ -225,7 +225,7 @@ export function DashboardSidebar({ user }) {
             </Drawer.Content>
           </Drawer.Backdrop>
         </Drawer>
-      </div>
+      </div> */}
     </>
   );
 }

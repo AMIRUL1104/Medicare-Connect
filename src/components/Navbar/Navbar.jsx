@@ -1,5 +1,5 @@
 import { getUserSession } from "@/services/core/session";
-import NavbarShell from "@/components/Navbar/NavbarShell";
+import NavbarShell from "./NavbarShell";
 
 async function Navbar() {
   const user = await getUserSession();

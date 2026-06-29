@@ -16,14 +16,16 @@ export const NAV_LINKS = [
  *
  * @param {string} activeHref - current pathname, to highlight active link
  * @param {string} direction - "row" | "col"
+ * @param {boolean} isDashboardMode - optional, dynamically sets base color for dark/light themes
  * @param {function} onLinkClick - optional, e.g. close mobile menu on click
  * @param {string} linkClassName - override default link styling
  */
 export default function NavLinks({
   activeHref = "/",
   direction = "row",
+  isDashboardMode = false, // থিম ডিটেকশনের জন্য নতুন প্রপ
   onLinkClick,
-  linkClassName,
+  linkClassName = "",
 }) {
   return (
     <ul
@@ -33,18 +35,20 @@ export default function NavLinks({
     >
       {NAV_LINKS.map((link) => {
         const isActive = activeHref === link.href;
+        const baseColor = isDashboardMode ? "text-gray-400" : "text-[#1E293B]";
+
         return (
-          <li key={link.href}>
+          <li key={link.href} className="w-full">
             <Link
               href={link.href}
               onClick={onLinkClick}
-              className={`text-sm font-medium transition-colors duration-200 ${
-                direction === "col" ? "block py-2.5 px-1" : ""
+              className={`text-sm font-medium transition-colors duration-200 whitespace-nowrap ${
+                direction === "col" ? "block py-3 px-2 rounded-md" : ""
               } ${
                 isActive
-                  ? "text-[#0EA5E9]"
-                  : "text-[#a5bee0] hover:text-[#0EA5E9]"
-              } ${linkClassName || ""}`} // বাইরে থেকে আসা ক্লাস শেষে যুক্ত হবে
+                  ? "text-[#0EA5E9] font-semibold bg-[#0EA5E9]/10"
+                  : `${baseColor} hover:text-[#0EA5E9] hover:bg-gray-50/10`
+              } ${linkClassName}`}
             >
               {link.label}
             </Link>

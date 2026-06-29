@@ -73,7 +73,7 @@ export default async function HeroSection() {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
                 <div>
                   <p className="text-xs font-semibold text-[#1E293B] leading-tight">
-                    {totalDoctors} doctors
+                    {totalDoctors || 0} doctors
                   </p>
                   <p className="text-[10px] text-[#64748B] leading-tight">
                     Available now
