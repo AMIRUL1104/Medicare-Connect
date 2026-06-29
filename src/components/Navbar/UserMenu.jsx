@@ -67,21 +67,21 @@ export default function UserMenu({ user }) {
           </div>
 
           <Link
-            href="/dashboard"
+            href={`/dashboard/${user.role}`}
             className="block px-4 py-2 text-sm text-[#1E293B] hover:bg-[#F0F9FF] hover:text-[#0EA5E9] transition-colors"
             onClick={() => setOpen(false)}
           >
             Dashboard
           </Link>
           <Link
-            href="/profile"
+            href={`/dashboard/${user.role}/profile`}
             className="block px-4 py-2 text-sm text-[#1E293B] hover:bg-[#F0F9FF] hover:text-[#0EA5E9] transition-colors"
             onClick={() => setOpen(false)}
           >
             My Profile
           </Link>
           <Link
-            href="/settings"
+            href={`/dashboard/${user.role}/settings`}
             className="block px-4 py-2 text-sm text-[#1E293B] hover:bg-[#F0F9FF] hover:text-[#0EA5E9] transition-colors"
             onClick={() => setOpen(false)}
           >

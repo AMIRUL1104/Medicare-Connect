@@ -71,23 +71,12 @@ async function UsersManagePage() {
                     </td>
 
                     {/* রোল (Role) */}
-                    {/* <td className="py-4 px-6">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium uppercase tracking-wider ${
-                          userItem.role === "admin"
-                            ? "bg-purple-500/10 text-purple-400"
-                            : userItem.role === "doctor"
-                              ? "bg-emerald-500/10 text-emerald-400"
-                              : "bg-sky-500/10 text-sky-400"
-                        }`}
-                      >
-                        {userItem.role}
-                      </span>
-                    </td> */}
-                    <RoleSelectorDropdown
-                      userId={userItem._id}
-                      currentRole={userItem.role}
-                    />
+                    <td className="py-4 px-6">
+                      <RoleSelectorDropdown
+                        userId={userItem._id}
+                        currentRole={userItem.role}
+                      />
+                    </td>
                     {/* স্ট্যাটাস (Active / Suspended) */}
                     <td className="py-4 px-6">
                       <span

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // কাস্টম UI উপাদানসমূহ
 import { FieldError } from "@/components/ui/FieldError";
@@ -16,6 +16,9 @@ import Logo from "@/components/shared/Logo";
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/"; // ডিফল্ট হিসেবে ড্যাশবোর্ড
+
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const {
@@ -49,7 +52,7 @@ export default function LoginForm() {
 
       if (session) {
         toast.success("Welcome back to MediCare Connect!");
-        router.push("/");
+        router.push(callbackUrl);
         router.refresh();
       }
     } catch (err) {
