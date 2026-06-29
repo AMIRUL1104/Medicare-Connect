@@ -10,7 +10,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { AddNewDoctor, AddNewPatient } from "@/services/server/action";
-import GoogleSigninButton from "../ui/GoogleSigninButton";
+
 import DoctorFields from "./DoctorFields";
 import SuccessModal from "./SuccessModal";
 import RoleSelector from "./RoleSelector";
@@ -180,10 +180,6 @@ export default function SignupForm() {
         </div>
 
         {/* Google button */}
-        <GoogleSigninButton
-          isGoogleLoading={isGoogleLoading}
-          setIsGoogleLoading={setIsGoogleLoading}
-        />
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-5">
