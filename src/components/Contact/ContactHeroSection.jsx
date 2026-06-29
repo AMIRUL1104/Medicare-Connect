@@ -17,20 +17,21 @@ export default function ContactHeroSection() {
         <FadeIn direction="up">
           <span className="inline-flex items-center gap-2 bg-[#E0F2FE] text-[#0EA5E9] text-xs font-semibold px-4 py-1.5 rounded-full mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0EA5E9]" />
-            We're Here to Help
+            {`We're Here to Help`}
           </span>
         </FadeIn>
 
         <FadeIn direction="up" delay={0.1}>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E293B] leading-tight">
-            Get in Touch with <span className="text-[#0EA5E9]">MediCare Connect</span>
+            Get in Touch with{" "}
+            <span className="text-[#0EA5E9]">MediCare Connect</span>
           </h1>
         </FadeIn>
 
         <FadeIn direction="up" delay={0.2}>
           <p className="text-[#64748B] text-base lg:text-lg mt-5 max-w-2xl mx-auto leading-relaxed">
-            Have a question about appointments, billing, or your account?
-            Our support team is ready to help — reach out anytime.
+            Have a question about appointments, billing, or your account? Our
+            support team is ready to help — reach out anytime.
           </p>
         </FadeIn>
       </div>

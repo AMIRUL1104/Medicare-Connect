@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { uploadToImageBB, validateImageFile } from "@/lib/imagebb";
+import Image from "next/image";
 
 export default function PhotoUpload({
   onUploadComplete,
@@ -157,7 +158,9 @@ export default function PhotoUpload({
         {/* Preview */}
         {preview && !uploading && (
           <div className="flex flex-col items-center gap-2">
-            <img
+            <Image
+              width={20}
+              height={20}
               src={preview}
               alt="Preview"
               className="w-20 h-20 rounded-full object-cover ring-2 ring-[#10B981] ring-offset-2 ring-offset-[#111827]"

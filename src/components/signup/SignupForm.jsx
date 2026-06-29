@@ -102,7 +102,7 @@ export default function SignupForm() {
             role: userRole,
           };
           const res = await AddNewPatient(patientData);
-          console.log(res);
+          // console.log(res);
         }
 
         if (userRole === "doctor") {
@@ -131,7 +131,7 @@ export default function SignupForm() {
           };
 
           const res = await AddNewDoctor(doctorData);
-          console.log("Doctor db response:", res);
+          // console.log("Doctor db response:", res);
         }
 
         setShowSuccess(true);

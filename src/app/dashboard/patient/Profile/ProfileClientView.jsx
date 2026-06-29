@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify"; // অথবা আপনার প্রজেক্টের কাস্টম টোস্ট
+import Image from "next/image";
 
 // 💡 আপনার সার্ভার অ্যাকশন বা এপিআই ফাংশনটি এখানে ইম্পোর্ট করুন
 // import { updatePatientProfile } from "@/services/server/api";
@@ -94,7 +95,9 @@ function ProfileClientView({ initialData, user }) {
           <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between -mt-16 mb-6 gap-4">
             <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 text-center sm:text-left">
               {profileData?.image ? (
-                <img
+                <Image
+                  width={28}
+                  height={28}
                   src={profileData.image}
                   alt={profileData.name}
                   className="size-28 rounded-2xl border-4 border-[#161D30] bg-[#0E121F] object-cover shadow-xl"

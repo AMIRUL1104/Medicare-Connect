@@ -16,7 +16,7 @@ async function ManageSchedulePage() {
   // ২. ডক্টরের কালেকশন থেকে ডক্টরের স্পেসিফিক আইডি (বা userId) দিয়ে ডাটা ফেচ করা
   // আপনার এপিআই লজিক অনুযায়ী পাস করুন (এখানে user.id কে userId হিসেবে পাস করা হয়েছে)
   const doctorDetails = await getDoctorById(user.id, "userId");
-  console.log(doctorDetails);
+  // console.log(doctorDetails);
 
   // ৩. যদি ডাটাবেজে পূর্বে কোনো অবজেক্ট না থাকে, তবে ক্র্যাশ এড়াতে ফলব্যাক ডাটা
   const fallbackDoctorData = {

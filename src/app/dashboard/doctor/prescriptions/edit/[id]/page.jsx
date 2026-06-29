@@ -9,11 +9,11 @@ import EditPrescriptionForm from "./EditPrescriptionForm";
 // 💡 এটি একটি Server Component
 async function EditPrescriptionPage({ params }) {
   const { id } = await params; // URL থেকে prescriptionId নেওয়া হচ্ছে
-  console.log(id);
+  // console.log(id);
 
   // সার্ভার সাইড থেকে সরাসরি ডাটাবেজ ফেচ
   const prescriptionData = await getPrescriptionById(id); // আপনার তৈরি ফেচিং API
-  console.log(prescriptionData);
+  // console.log(prescriptionData);
   // ডাটা না পাওয়া গেলে ফলব্যাক বা এরর মেসেজ
   if (!prescriptionData) {
     return (

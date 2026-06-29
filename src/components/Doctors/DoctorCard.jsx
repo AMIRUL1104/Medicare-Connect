@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 /**
@@ -43,7 +44,8 @@ export default function DoctorCard({ doctor }) {
     <div className="group bg-white border border-[#E2E8F0] rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-[#0EA5E9]/40 hover:shadow-[0_10px_28px_rgba(14,165,233,0.12)] hover:-translate-y-1">
       {/* Profile image */}
       <div className="relative w-full h-44 bg-[#F0F9FF] overflow-hidden">
-        <img
+        <Image
+          fill
           src={profileImage}
           alt={doctorName}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

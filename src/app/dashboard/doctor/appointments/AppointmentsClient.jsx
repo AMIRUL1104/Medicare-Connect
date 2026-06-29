@@ -45,7 +45,7 @@ export default function AppointmentsClient({ initialAppointments }) {
           // 'completed' হলে প্রেসক্রিপশন রাউটে নিয়ে যাবে
           if (newStatus === "completed") {
             const res = await createPrescription(appointmentId);
-            console.log(res);
+            // console.log(res);
             if (res.insertedId) {
               // সাথে সাথে নতুন প্রেসক্রিপশনের এডিট রুটে পুশ করবে
               router.push(

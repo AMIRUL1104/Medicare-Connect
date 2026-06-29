@@ -7,14 +7,6 @@ function PayButton({ appointment, doctor }) {
   const handlePayment = async () => {
     setIsLoading(true);
     try {
-      // console লগ দিয়ে চেক করুন ডেটাগুলো আসলেই আছে কিনা
-      // console.log(
-      //   "Sending data:",
-      //   appointment?._id,
-      //   doctor?.doctorName,
-      //   doctor?.consultationFee,
-      // );
-
       // এখানে আপনার ডেটাবেস থেকে অ্যাপয়েন্টমেন্টের ডিটেইলস (appointmentId, doctorName, appointmentFee) থাকতে হবে
       const response = await fetch("/api/checkout_sessions", {
         method: "POST",
@@ -49,7 +41,7 @@ function PayButton({ appointment, doctor }) {
     <button
       onClick={handlePayment}
       disabled={isLoading}
-      className="w-full py-3.5 px-6 rounded-[12px] font-semibold text-white text-[15px] flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_18px_rgba(14,165,233,0.25)] hover:shadow-[0_6px_24px_rgba(14,165,233,0.35)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+      className="w-full py-3.5 px-6 rounded-xl font-semibold text-white text-[15px] flex items-center justify-center gap-2.5 transition-all duration-200 shadow-[0_4px_18px_rgba(14,165,233,0.25)] hover:shadow-[0_6px_24px_rgba(14,165,233,0.35)] hover:-translate-y-px active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
       style={{
         background: "linear-gradient(135deg, #0EA5E9, #0284C7)",
       }}

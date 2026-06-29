@@ -37,15 +37,17 @@ export default function FaqSection() {
   return (
     <section className="bg-white py-16 lg:py-20" aria-labelledby="faq-heading">
       <div className="max-w-3xl mx-auto px-4 lg:px-8">
-
         <FadeIn direction="up">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 bg-[#D1FAE5] text-[#10B981] text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
               Frequently Asked Questions
             </span>
-            <h2 id="faq-heading" className="text-2xl lg:text-3xl font-bold text-[#1E293B]">
-              Got Questions? We've Got Answers
+            <h2
+              id="faq-heading"
+              className="text-2xl lg:text-3xl font-bold text-[#1E293B]"
+            >
+              {`Got Questions? We've Got Answers`}
             </h2>
           </div>
         </FadeIn>
@@ -53,11 +55,14 @@ export default function FaqSection() {
         <FadeIn direction="up" delay={0.1}>
           <div className="space-y-3">
             {FAQS.map((faq) => (
-              <FaqItem key={faq.question} question={faq.question} answer={faq.answer} />
+              <FaqItem
+                key={faq.question}
+                question={faq.question}
+                answer={faq.answer}
+              />
             ))}
           </div>
         </FadeIn>
-
       </div>
     </section>
   );

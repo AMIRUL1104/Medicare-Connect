@@ -137,7 +137,7 @@ export default function LoginForm() {
           <div className="flex justify-between items-center">
             <Label
               htmlFor="password"
-              className="text-gray-300 text-xs font-semibold !mb-0"
+              className="text-gray-300 text-xs font-semibold mb-0"
             >
               Password <span className="text-red-400">*</span>
             </Label>

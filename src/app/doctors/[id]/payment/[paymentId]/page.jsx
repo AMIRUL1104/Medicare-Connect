@@ -82,7 +82,7 @@ async function PaymentPage({ params }) {
 
             {/* Schedule Details Card */}
             <div className="bg-white rounded-2xl p-6 border border-[#E2E8F0] shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-4">
-              <h3 className="text-sm font-bold text-[#1E293B] uppercase tracking-wider text-[#94A3B8]">
+              <h3 className="text-sm font-bold text-[#1E293B] uppercase tracking-wider ">
                 Appointment Schedule
               </h3>
 
@@ -155,7 +155,7 @@ async function PaymentPage({ params }) {
               <div className="space-y-3 text-sm border-b border-[#E2E8F0] pb-4">
                 <div className="flex justify-between text-[#64748B]">
                   <span>Patient Name</span>
-                  <span className="font-semibold text-[#1E293B] max-w-[150px] truncate">
+                  <span className="font-semibold text-[#1E293B] max-w-37.5 truncate">
                     {patientName}
                   </span>
                 </div>

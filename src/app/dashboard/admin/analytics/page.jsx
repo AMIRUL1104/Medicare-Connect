@@ -1,5 +1,4 @@
 import React from "react";
-// ভবিষ্যতে ব্যবহারের জন্য আপনার তৈরি করা API বা সার্ভার অ্যাকশনগুলো এখানে ইম্পোর্ট করবেন
 import {
   getPaymentHistory,
   getAllAppointment,
@@ -22,11 +21,8 @@ export default async function AnalyticsPage() {
   let doctors = [];
 
   const topDoctors = await getTopRatedDocors();
-  //   const topDoctors = data.data;
-  console.log(topDoctors);
 
   try {
-    // Promise.allSettled ব্যবহার করা নিরাপদ যাতে একটি API ফেইল করলেও পুরো পেজ ক্র্যাশ না করে
     const [paymentsRes, appointmentsRes, doctorsRes] = await Promise.allSettled(
       [getPaymentHistory(), getAllAppointment(), getAllDoctors()],
     );
