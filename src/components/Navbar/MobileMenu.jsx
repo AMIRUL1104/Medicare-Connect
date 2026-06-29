@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation"; // রুট ট্র্যাক করার জন্য
-import { ChevronDown, ChevronUp, LogOut } from "lucide-react";
+import { ChevronDown, ChevronUp, LogOut, Menu } from "lucide-react";
 
 import Logo from "../shared/Logo";
 import NavLinks from "../shared/NavLinks";
@@ -83,9 +83,9 @@ export default function MobileMenu({ user, onSignOut }) {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className={`p-2 -mr-2 ${theme.hamburgerColor}`}
+        className={`p-2 -mr-2 `}
       >
-        <svg
+        {/* <svg
           className="w-6 h-6"
           fill="none"
           stroke="currentColor"
@@ -97,7 +97,8 @@ export default function MobileMenu({ user, onSignOut }) {
             strokeWidth={2}
             d="M4 6h16M4 12h16M4 18h16"
           />
-        </svg>
+        </svg> */}
+        <Menu className="w-6 h-6" />
       </button>
 
       {/* Overlay */}
