@@ -1,10 +1,10 @@
-import HeroSection from "@/components/about/HeroSection";
-import MissionSection from "@/components/about/MissionSection";
-import HowItWorksSection from "@/components/about/HowItWorksSection";
-import StatsSection from "@/components/about/StatsSection";
-import WhyChooseUsSection from "@/components/about/WhyChooseUsSection";
-import ValuesSection from "@/components/about/ValuesSection";
-import CTASection from "@/components/about/CTASection";
+import MissionSection from "@/components/About/MissionSection";
+import HowItWorksSection from "@/components/About/HowItWorksSection";
+import StatsSection from "@/components/About/StatsSection";
+import WhyChooseUsSection from "@/components/About/WhyChooseUsSection";
+import ValuesSection from "@/components/About/ValuesSection";
+import CTASection from "@/components/About/CTASection";
+import HeroSection from "@/components/About/HeroSection";
 
 export const metadata = {
   title: "About Us – MediCare Connect",

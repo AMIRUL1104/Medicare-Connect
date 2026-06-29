@@ -1,9 +1,9 @@
-import FadeIn from "@/components/contact/FadeIn";
-import FaqItem from "@/components/contact/FaqItem";
-
 // Server Component. The heading, layout, and FAQ data are server-rendered.
 // Each <FaqItem> is its own tiny client island for expand/collapse —
 // the section itself never needs "use client".
+
+import FadeIn from "./FadeIn";
+import FaqItem from "./FaqItem";
 
 const FAQS = [
   {

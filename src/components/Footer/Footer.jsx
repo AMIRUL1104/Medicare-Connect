@@ -1,7 +1,7 @@
-import Logo from "@/components/Shared/Logo";
-import NavLinks from "@/components/Shared/NavLinks";
 // Lucide icons ইনস্টল করা না থাকলে npm i lucide-react করে নিন
 import { FaFacebook, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
+import Logo from "../shared/Logo";
+import NavLinks from "../shared/NavLinks";
 
 export default function Footer() {
   return (

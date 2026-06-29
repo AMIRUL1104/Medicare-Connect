@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import FadeIn from "@/components/doctors/FadeIn";
-import DoctorResults from "@/components/doctors/DoctorResults";
-import DoctorResultsSkeleton from "@/components/doctors/DoctorResultsSkeleton";
+import FadeIn from "@/components/Doctors/FadeIn";
+import DoctorResults from "@/components/Doctors/DoctorResults";
+import DoctorResultsSkeleton from "@/components/Doctors/DoctorResultsSkeleton";
 
 export const metadata = {
   title: "Find Doctors – MediCare Connect",

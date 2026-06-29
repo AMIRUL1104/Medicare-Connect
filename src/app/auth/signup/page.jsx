@@ -1,5 +1,5 @@
-import LeftPanel from "@/components/Signup/LeftPanel";
-import SignupForm from "@/components/Signup/SignupForm";
+import LeftPanel from "@/components/signup/LeftPanel";
+import SignupForm from "@/components/signup/SignupForm";
 
 export const metadata = {
   title: "Sign Up – MediCare Connect",

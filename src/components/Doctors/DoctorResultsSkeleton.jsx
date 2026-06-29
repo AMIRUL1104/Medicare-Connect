@@ -1,7 +1,7 @@
-import DoctorCardSkeleton from "@/components/doctors/DoctorCardSkeleton";
-import SearchInput from "@/components/doctors/SearchInput";
-import SortDropdown from "@/components/doctors/SortDropdown";
-import ClearFiltersButton from "@/components/doctors/ClearFiltersButton";
+import DoctorCardSkeleton from "@/components/Doctors/DoctorCardSkeleton";
+import SearchInput from "@/components/Doctors/SearchInput";
+import SortDropdown from "@/components/Doctors/SortDropdown";
+import ClearFiltersButton from "@/components/Doctors/ClearFiltersButton";
 
 /**
  * DoctorResultsSkeleton — Suspense fallback.
@@ -22,11 +22,18 @@ export default function DoctorResultsSkeleton() {
               <ClearFiltersButton />
             </div>
           </div>
-          <div className="mt-3 h-4 w-32 bg-[#E2E8F0] rounded animate-pulse" aria-hidden="true" />
+          <div
+            className="mt-3 h-4 w-32 bg-[#E2E8F0] rounded animate-pulse"
+            aria-hidden="true"
+          />
         </div>
       </div>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Loading doctors">
+      <ul
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        role="list"
+        aria-label="Loading doctors"
+      >
         {Array.from({ length: 6 }).map((_, i) => (
           <li key={i}>
             <DoctorCardSkeleton />

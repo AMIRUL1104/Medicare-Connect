@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/components/Shared/Logo";
-import NavLinks from "@/components/Shared/NavLinks";
+
+import Logo from "../shared/Logo";
+import NavLinks from "../shared/NavLinks";
 
 export default function MobileMenu({ user }) {
   const [open, setOpen] = useState(false);

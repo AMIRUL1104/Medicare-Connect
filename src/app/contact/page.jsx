@@ -1,7 +1,7 @@
-import ContactHeroSection from "@/components/contact/ContactHeroSection";
-import ContactInfoSection from "@/components/contact/ContactInfoSection";
-import ContactFormSection from "@/components/contact/ContactFormSection";
-import FaqSection from "@/components/contact/FaqSection";
+import ContactFormSection from "@/components/Contact/ContactFormSection";
+import ContactHeroSection from "@/components/Contact/ContactHeroSection";
+import ContactInfoSection from "@/components/Contact/ContactInfoSection";
+import FaqSection from "@/components/Contact/FaqSection";
 
 export const metadata = {
   title: "Contact Us – MediCare Connect",

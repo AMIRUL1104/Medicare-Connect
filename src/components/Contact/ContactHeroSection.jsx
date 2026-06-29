@@ -1,4 +1,4 @@
-import FadeIn from "@/components/contact/FadeIn";
+import FadeIn from "@/components/Contact/FadeIn";
 
 // Server Component. FadeIn is the only client piece (entrance animation).
 export default function ContactHeroSection() {

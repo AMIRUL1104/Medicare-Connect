@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Logo from "@/components/Shared/Logo";
-import NavLinks from "@/components/Shared/NavLinks";
+
 import UserMenu from "@/components/Navbar/UserMenu";
 import MobileMenu from "@/components/Navbar/MobileMenu";
+import Logo from "../shared/Logo";
+import NavLinks from "../shared/NavLinks";
 
 /**
  * Handles sticky positioning + transparent-to-white scroll transition.

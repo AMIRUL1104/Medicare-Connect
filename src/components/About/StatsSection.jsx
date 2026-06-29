@@ -1,6 +1,6 @@
-import FadeIn from "@/components/about/FadeIn";
-import Counter from "@/components/about/Counter";
 import { getStats } from "@/services/server/api";
+import Counter from "./Counter";
+import FadeIn from "./FadeIn";
 // Server Component. The card markup, gradient background, and labels
 // are all server-rendered. Only <FadeIn> (entrance) and <Counter>
 // (count-up numbers) are client islands — everything else is static HTML.
