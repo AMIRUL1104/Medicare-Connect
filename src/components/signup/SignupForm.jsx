@@ -148,10 +148,11 @@ export default function SignupForm() {
     <>
       <SuccessModal show={showSuccess} role={role} />
 
-      <div className="bg-[#111827] border border-gray-800 rounded-2xl p-7 lg:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] relative overflow-hidden backdrop-blur-md">
+      {/* রেসপন্সিভ চেঞ্জ: p-4 থেকে শুরু করে md/lg স্ক্রিনে প্যাডিং বাড়ানো হয়েছে */}
+      <div className="w-full max-w-md mx-auto bg-[#111827] border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] relative overflow-hidden backdrop-blur-md">
         {/* Mobile logo */}
         <div className="flex items-center gap-2 mb-5 lg:hidden">
-          <div className="w-8 h-8 rounded-lg bg-[#0EA5E9] flex items-center justify-center shadow-[0_0_15px_rgba(14,165,233,0.4)]">
+          <div className="w-8 h-8 rounded-lg bg-[#0EA5E9] flex items-center justify-center shadow-[0_0_15px_rgba(14,165,233,0.4)] flex-shrink-0">
             <svg
               className="w-4 h-4 text-white"
               fill="none"
@@ -166,25 +167,26 @@ export default function SignupForm() {
               />
             </svg>
           </div>
-          <span className="font-bold text-gray-100">MediCare Connect</span>
+          <span className="font-bold text-gray-100 text-sm sm:text-base whitespace-nowrap">
+            MediCare Connect
+          </span>
         </div>
 
         {/* Heading */}
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-100">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-100">
             Create Your Account
           </h2>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-gray-400 text-xs sm:text-sm mt-1">
             Start managing your healthcare journey.
           </p>
         </div>
 
-        {/* Google button */}
-
         {/* Divider */}
-        <div className="flex items-center gap-3 my-5">
+        {/* রেসপন্সিভ চেঞ্জ: whitespace-normal ব্যবহার করা হয়েছে যাতে অতি ক্ষুদ্র স্ক্রিনে টেক্সট ভেঙে না যায় */}
+        <div className="flex items-center gap-2 my-5">
           <div className="flex-1 h-px bg-gray-800" />
-          <span className="text-xs text-gray-400 font-medium whitespace-nowrap">
+          <span className="text-[10px] sm:text-xs text-gray-400 font-medium text-center px-1">
             or create account manually
           </span>
           <div className="flex-1 h-px bg-gray-800" />
@@ -192,7 +194,7 @@ export default function SignupForm() {
 
         {/* Root error */}
         {errors.root && (
-          <div className="bg-red-950/40 border border-red-500/40 rounded-lg px-4 py-3 mb-4 text-sm text-red-400">
+          <div className="bg-red-950/40 border border-red-500/40 rounded-lg px-4 py-3 mb-4 text-sm text-red-400 break-words">
             {errors.root.message}
           </div>
         )}
@@ -202,7 +204,7 @@ export default function SignupForm() {
           <div className="space-y-4">
             {/* Full Name */}
             <div>
-              <Label htmlFor="fullName" className="text-gray-100">
+              <Label htmlFor="fullName" className="text-gray-100 text-sm">
                 Full Name <span className="text-red-400">*</span>
               </Label>
               <Input
@@ -221,7 +223,7 @@ export default function SignupForm() {
 
             {/* Email */}
             <div>
-              <Label htmlFor="email" className="text-gray-100">
+              <Label htmlFor="email" className="text-gray-100 text-sm">
                 Email Address <span className="text-red-400">*</span>
               </Label>
               <Input
@@ -243,9 +245,10 @@ export default function SignupForm() {
             </div>
 
             {/* Phone + Gender */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* রেসপন্সিভ চেঞ্জ: ৩২০px স্ক্রিনে grid-cols-1 এবং sm স্ক্রিন থেকে grid-cols-2 হবে */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <Label htmlFor="phone" className="text-gray-100">
+                <Label htmlFor="phone" className="text-gray-100 text-sm">
                   Phone <span className="text-red-400">*</span>
                 </Label>
                 <Input
@@ -262,7 +265,7 @@ export default function SignupForm() {
                 <FieldError error={errors.phone} />
               </div>
               <div>
-                <Label htmlFor="gender" className="text-gray-100">
+                <Label htmlFor="gender" className="text-gray-100 text-sm">
                   Gender <span className="text-red-400">*</span>
                 </Label>
                 <select
@@ -327,7 +330,7 @@ export default function SignupForm() {
 
             {/* Password */}
             <div>
-              <Label htmlFor="password" className="text-gray-100">
+              <Label htmlFor="password" className="text-gray-100 text-sm">
                 Password <span className="text-red-400">*</span>
               </Label>
               <PasswordInput
@@ -359,7 +362,10 @@ export default function SignupForm() {
 
             {/* Confirm Password */}
             <div>
-              <Label htmlFor="confirmPassword" className="text-gray-100">
+              <Label
+                htmlFor="confirmPassword"
+                className="text-gray-100 text-sm"
+              >
                 Confirm Password <span className="text-red-400">*</span>
               </Label>
               <PasswordInput
@@ -381,7 +387,7 @@ export default function SignupForm() {
           </div>
 
           {/* Terms */}
-          <div className="flex items-start gap-3 mt-5">
+          <div className="flex items-start gap-2.5 mt-5">
             <input
               type="checkbox"
               id="terms"
@@ -392,7 +398,7 @@ export default function SignupForm() {
             />
             <label
               htmlFor="terms"
-              className="text-xs text-gray-400 cursor-pointer leading-relaxed"
+              className="text-[11px] sm:text-xs text-gray-400 cursor-pointer leading-relaxed"
             >
               I agree to the{" "}
               <a
@@ -417,7 +423,7 @@ export default function SignupForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-5 py-3 px-6 rounded-[10px] font-semibold text-white text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_4px_20px_rgba(14,165,233,0.4)] hover:-translate-y-px active:translate-y-0"
+            className="w-full mt-5 py-3 px-4 sm:px-6 rounded-[10px] font-semibold text-white text-[14px] sm:text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_4px_20px_rgba(14,165,233,0.4)] hover:-translate-y-px active:translate-y-0"
             style={{ background: "linear-gradient(135deg, #0EA5E9, #0284C7)" }}
           >
             {isSubmitting ? (
@@ -432,7 +438,7 @@ export default function SignupForm() {
         </form>
 
         {/* Sign In link */}
-        <p className="text-center text-sm text-gray-400 mt-5">
+        <p className="text-center text-xs sm:text-sm text-gray-400 mt-5">
           Already have an account?{" "}
           <a
             href="/auth/signup"
