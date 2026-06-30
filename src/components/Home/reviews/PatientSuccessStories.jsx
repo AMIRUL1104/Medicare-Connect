@@ -1,12 +1,13 @@
 // Server Component — no "use client" here
 
-import { patientReviews } from "@/lib/data/reviews";
 import ReviewsMarquee from "./ReviewsMarquee";
-import { getStats } from "@/services/server/api";
+import { getAllReviews, getStats } from "@/services/server/api";
 
 export default async function PatientSuccessStories() {
   const { totalDoctors, totalPatients, totalAppointments, totalReviews } =
     await getStats();
+
+  const reviews = await getAllReviews();
   return (
     <section className="py-20 bg-[#F0F7FC] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
@@ -51,7 +52,7 @@ export default async function PatientSuccessStories() {
 
         {/* Marquee — client component for Framer Motion */}
         <div className="px-4">
-          <ReviewsMarquee reviews={patientReviews} />
+          <ReviewsMarquee reviews={reviews} />
         </div>
       </div>
 

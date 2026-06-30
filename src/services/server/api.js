@@ -81,6 +81,10 @@ export const getReviewsByDoctorId = async (doctorId) => {
   return protectedFetch(`/api/reviews/${doctorId}?forDoctor=true`);
 };
 
+export const getAllReviews = async () => {
+  return serverFetch(`/api/reviews`);
+};
+
 export const searchDoctorsFromServer = async (searchQuery) => {
   const result = await serverFetch(`/api/doctors/search?search=${searchQuery}`);
 

@@ -50,15 +50,32 @@ export default function ReviewCard({ review }) {
 
       {/* Patient info */}
       <div className="flex items-center gap-3">
-        <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-[#E8F4FD]">
+        {/* <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-[#E8F4FD]">
           <Image
-            src={patientPhoto}
+            src={patientPhoto || }
             alt={`Photo of ${patientName}`}
             fill
             className="object-cover"
             sizes="40px"
           />
+        </div> */}
+        <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-[#E8F4FD]">
+          {patientPhoto ? (
+            <Image
+              src={patientPhoto}
+              alt={`Photo of ${patientName}`}
+              fill
+              className="object-cover"
+              sizes="40px"
+            />
+          ) : (
+            // ফটো না থাকলে নামের প্রথম অক্ষর বা কোনো আইকন দেখাতে পারেন
+            <div className="w-full h-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-500">
+              {patientName?.charAt(0)}
+            </div>
+          )}
         </div>
+
         <div className="min-w-0">
           <p className="text-slate-800 text-sm font-semibold truncate">
             {patientName}
